@@ -1,24 +1,30 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "eslam/skeloton-package",
+    "description": "This is my package skeloton-package",
     "keywords": [
-        ":vendor_name",
+        "Eslam",
         "laravel",
-        ":package_slug"
+        "skeloton-package"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/eslam/skeloton-package",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Eslam",
+            "email": "islamadel295@yahoo.com",
             "role": "Developer"
         }
     ],
     "require": {
         "php": "^8.1",
         "spatie/laravel-package-tools": "^1.14.0",
-        "illuminate/contracts": "^10.0"
+        "illuminate/contracts": "^10.0",
+        "prettus/l5-repository": "^2.8",
+        "spatie/laravel-activitylog": "^4.0",
+        "spatie/laravel-query-builder": "^5.0",
+        "livewire/livewire": "^2.10",
+        "laravel/passport": "^11.3",
+        "laravel/ui": "^4.2"
     },
     "require-dev": {
         "laravel/pint": "^1.0",
@@ -35,19 +41,19 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src/",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories/"
+            "Eslam\\SkelotonPackage\\": "src/",
+            "Eslam\\SkelotonPackage\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests/",
+            "Eslam\\SkelotonPackage\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
         }
     },
     "scripts": {
         "post-autoload-dump": "@composer run prepare",
-        "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+        "clear": "@php vendor/bin/testbench package:purge-skeloton-package --ansi",
         "prepare": "@php vendor/bin/testbench package:discover --ansi",
         "build": [
             "@composer run prepare",
@@ -73,10 +79,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Eslam\\SkelotonPackage\\SkelotonPackageServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "SkelotonPackage": "Eslam\\SkelotonPackage\\Facades\\SkelotonPackage"
             }
         }
     },
