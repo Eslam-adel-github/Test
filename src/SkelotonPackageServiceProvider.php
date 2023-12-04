@@ -4,6 +4,7 @@ namespace EslamDDD\SkelotonPackage;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+
 use EslamDDD\SkelotonPackage\Commands\SkelotonPackageCommand;
 
 class SkelotonPackageServiceProvider extends PackageServiceProvider

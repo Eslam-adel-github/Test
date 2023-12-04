@@ -13,8 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 Route::middleware(['auth'])->group(function () {
-	Route::get('/dashboard','DashboardController')->name('dashboard');
-	###CRUD_PLACEHOLDER###
+    Route::get('/dashboard', 'DashboardController')->name('dashboard');
+    //##CRUD_PLACEHOLDER###
 });

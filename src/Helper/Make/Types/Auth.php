@@ -9,50 +9,49 @@ class Auth extends Maker
     /**
      * Options to be available once Command-Type is called
      *
-     * @return Array
+     * @return array
      */
     public $options = [
         'domain',
-        'entity'
+        'entity',
     ];
 
     /**
      * Return options that should be treated as choices
      *
-     * @return Array
+     * @return array
      */
     public $allowChoices = [
         'domain',
-        'entity'
+        'entity',
     ];
 
     /**
      * Check if the current options is True/False question
      *
-     * @return Array
+     * @return array
      */
     public $booleanOptions = [];
 
     /**
      * Check if the current options is requesd based on other option
      *
-     * @return Array
+     * @return array
      */
     public $requiredUnless = [];
 
     /**
      * Fill all placeholders in the stub file
-     *
-     * @return Bool
      */
-    public function service(Array $values = []):bool{
+    public function service(array $values = []): bool
+    {
 
         // Chagne entity to authenticatable and create Auth directory inside controllers
         // Modify the config auth file to match the new class name
 
         $this->command->error('Impelementation is required');
         exit();
+
         return true;
     }
-
 }

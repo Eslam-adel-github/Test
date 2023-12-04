@@ -2,9 +2,6 @@
 
 namespace EslamDDD\SkelotonPackage\Helper;
 
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
 use ReflectionClass;
 
 class NamespaceCreator
@@ -14,16 +11,15 @@ class NamespaceCreator
      *
      * @param [type] $domain
      * @param [type] $entity
-     * @return string
      */
     public static function Entity($domain, $entity): string
     {
-        $domain = join(' ',array_filter(preg_split('#(?=[A-Z])#',$domain)));
-        $entity = join(' ',array_filter(preg_split('#(?=[A-Z])#',$entity)));
+        $domain = implode(' ', array_filter(preg_split('#(?=[A-Z])#', $domain)));
+        $entity = implode(' ', array_filter(preg_split('#(?=[A-Z])#', $entity)));
 
         $domain = Naming::class($domain);
         $entity = Naming::class($entity);
-        $class = '\\Src\\Domain\\' . $domain . '\\Entities\\' . $entity;
+        $class = '\\Src\\Domain\\'.$domain.'\\Entities\\'.$entity;
 
         return $class;
     }
@@ -33,12 +29,11 @@ class NamespaceCreator
      *
      * @param [type] $domain
      * @param [type] $entity
-     * @return string
      */
     public static function Segments(...$segments): string
     {
 
-        $class = '\\' . join('\\', $segments);
+        $class = '\\'.implode('\\', $segments);
 
         return $class;
     }
@@ -48,7 +43,6 @@ class NamespaceCreator
      *
      * @param [type] $domain
      * @param [type] $entity
-     * @return string
      */
     public static function table($domain, $entity): string
     {
@@ -57,13 +51,11 @@ class NamespaceCreator
         return with(new $class())->getTable();
     }
 
-
     /**
      * Create Name Space for an entity
      *
      * @param [type] $domain
      * @param [type] $entity
-     * @return array
      */
     public static function fillables($domain, $entity): array
     {

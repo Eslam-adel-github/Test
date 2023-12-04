@@ -2,6 +2,7 @@
 
 namespace EslamDDD\SkelotonPackage\Helper\Make\Service\Test;
 
+<<<<<<< HEAD
 use ReflectionClass;
 use Illuminate\Support\Str;
 use EslamDDD\SkelotonPackage\Helper\Path;
@@ -12,12 +13,21 @@ use EslamDDD\SkelotonPackage\Helper\Make\Service\Test\Test;
 use Illuminate\Validation\ValidationRuleParser;
 use Illuminate\Foundation\Http\FormRequest as Request;
 use EslamDDD\SkelotonPackage\Helper\Make\Service\Test\FormRequestsTestCasesFactory;
+=======
+use Eslam\SkelotonPackage\Helper\Make\Maker;
+use Eslam\SkelotonPackage\Helper\Path;
+use Illuminate\Foundation\Http\FormRequest as Request;
+use Illuminate\Support\Str;
+>>>>>>> 93eb304d6b785e161e437b08fcd86eddcbeaf2c2
 
 class FormRequest extends Test
 {
     private $domain;
+
     private $formRequestsDirPath;
+
     private $formRequestDirs;
+
     private $TestCommand;
 
     public function __construct(Maker $TestCommand, string $domain)
@@ -45,8 +55,8 @@ class FormRequest extends Test
                 $this->createBasicTestCases($formRequestInstance);
 
                 $placeholders = [
-                    '{{REQUEST_LC}}' => Str::lower($formRequest) . 'FormRequest',
-                    '{{REQUEST}}' => $formRequest . 'FormRequest',
+                    '{{REQUEST_LC}}' => Str::lower($formRequest).'FormRequest',
+                    '{{REQUEST}}' => $formRequest.'FormRequest',
                     '{{DOMAIN}}' => $this->domain,
                     '{{TESTCASES}}' => $this->testCases['basic'],
                     // '{{JWTMETHODS}}' => $this->createJWTMethods(),
@@ -55,14 +65,14 @@ class FormRequest extends Test
                 dd($placeholders);
                 $dir = Path::toDomain($this->domain, 'Tests', 'Unit', 'Entities');
 
-                if (!File::isDirectory($dir)) {
+                if (! File::isDirectory($dir)) {
                     File::makeDirectory($dir);
                 }
 
                 $content = Str::of($this->TestCommand->getStub('resource-test'))
                     ->replace(array_keys($placeholders), array_values($placeholders));
 
-                $classFullName = $resource . 'Test';
+                $classFullName = $resource.'Test';
 
                 $this->TestCommand->save($dir, $classFullName, 'php', $content);
             }
@@ -71,7 +81,7 @@ class FormRequest extends Test
 
     protected function createRulesTestCases(Request $formRequest)
     {
-        foreach ($formRequest->rules()  as $fieldRules) {
+        foreach ($formRequest->rules() as $fieldRules) {
             $content = [];
 
             if (is_string($fieldRules)) {
@@ -84,7 +94,7 @@ class FormRequest extends Test
                 array_push($content, $testCases->make());
             }
 
-            return join("\n", $content);
+            return implode("\n", $content);
         }
     }
 }

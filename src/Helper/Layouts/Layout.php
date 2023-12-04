@@ -4,8 +4,8 @@ namespace EslamDDD\SkelotonPackage\Helper\Layouts;
 
 use EslamDDD\SkelotonPackage\Helper\Path;
 
-abstract class Layout{
-
+abstract class Layout
+{
     /**
      * Define options to build the current AdminPannel
      *
@@ -16,7 +16,7 @@ abstract class Layout{
     /**
      * Specify the directory name of the layout-view
      *
-     * @param string $viewName
+     * @param  string  $viewName
      */
     protected $viewName;
 
@@ -30,19 +30,17 @@ abstract class Layout{
     /**
      * Init the options attributes
      *
-     * @param Array $options optional
+     * @param  array  $options optional
      */
-    public function __construct(Array $options = []){
+    public function __construct(array $options = [])
+    {
         $this->options = $options;
 
-        $this->path = Path::build(Path::package(),'src','views',$this->viewName);
+        $this->path = Path::build(Path::package(), 'src', 'views', $this->viewName);
     }
 
     /**
      * Create layout and files for the current template
-     *
-     * @return Bool
      */
-    abstract function build() : Bool;
-
+    abstract public function build(): bool;
 }

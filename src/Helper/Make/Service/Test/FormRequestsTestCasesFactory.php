@@ -3,22 +3,32 @@
 namespace EslamDDD\SkelotonPackage\Helper\Make\Service\Test;
 
 use Illuminate\Support\Str;
+<<<<<<< HEAD
 use EslamDDD\SkelotonPackage\Helper\Make\Maker;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+=======
+>>>>>>> 93eb304d6b785e161e437b08fcd86eddcbeaf2c2
 
 class FormRequestsTestCasesFactory
 {
     public $testCommand;
+
     public $relationClass;
+
     public $relationMethod;
+
     public $placeholder;
+
     private $rule;
+
     private $existanceRules;
+
     private $sizeRules;
+
     private $typeRules;
 
     public function __construct(string $rule)
@@ -32,13 +42,12 @@ class FormRequestsTestCasesFactory
     public function make()
     {
         switch (true) {
-            case in_array($this->rule, $this->existanceRules);
+            case in_array($this->rule, $this->existanceRules):
                 $this->createExistanceRulesTestCases();
                 break;
-            case in_array($this->rule, $this->existanceRules);
+            case in_array($this->rule, $this->existanceRules):
                 $this->createSizeRulesTestCases();
                 break;
-
 
             default:
                 return $this->createDefault();
@@ -58,7 +67,7 @@ class FormRequestsTestCasesFactory
             '{{RELATION}}' => 'HasMany',
             '{{RELATION_CC}}' => 'has_many',
             '{{LocalKeyName}}' => $this->relationClass->{$this->relationMethod}()->getLocalKeyName(),
-            '{{ForeignKeyName}}' => $this->relationClass->{$this->relationMethod}()->getForeignKeyName()
+            '{{ForeignKeyName}}' => $this->relationClass->{$this->relationMethod}()->getForeignKeyName(),
         ];
 
         $this->stub = 'request-existance-test-cases-methods';
@@ -71,7 +80,7 @@ class FormRequestsTestCasesFactory
             '{{RELATION}}' => 'HasOne',
             '{{RELATION_CC}}' => 'has_one',
             '{{LocalKeyName}}' => $this->relationClass->{$this->relationMethod}()->getLocalKeyName(),
-            '{{ForeignKeyName}}' => $this->relationClass->{$this->relationMethod}()->getForeignKeyName()
+            '{{ForeignKeyName}}' => $this->relationClass->{$this->relationMethod}()->getForeignKeyName(),
         ];
 
         $this->stub = 'request-size-test-cases-methods';
@@ -82,7 +91,7 @@ class FormRequestsTestCasesFactory
         $this->placeholder = [
             '{{RELATED_MODEL}}' => $this->relationMethod,
             '{{OwnerKeyName}}' => $this->relationClass->{$this->relationMethod}()->getOwnerKeyName(),
-            '{{ForeignKeyName}}' => $this->relationClass->{$this->relationMethod}()->getForeignKeyName()
+            '{{ForeignKeyName}}' => $this->relationClass->{$this->relationMethod}()->getForeignKeyName(),
         ];
 
         $this->stub = 'entity-relations-belongs-to-methods';
@@ -92,9 +101,9 @@ class FormRequestsTestCasesFactory
     {
         $this->placeholder = [
             '{{RELATED_MODEL}}' => $this->relationMethod,
-            '{{PIVOT_TABLE}}' =>  $this->relationClass->{$this->relationMethod}()->getTable(),
+            '{{PIVOT_TABLE}}' => $this->relationClass->{$this->relationMethod}()->getTable(),
             '{{ForeignPivotKeyName}}' => $this->relationClass->{$this->relationMethod}()->getForeignPivotKeyName(),
-            '{{RelatedPivotKeyName}}' => $this->relationClass->{$this->relationMethod}()->getRelatedPivotKeyName()
+            '{{RelatedPivotKeyName}}' => $this->relationClass->{$this->relationMethod}()->getRelatedPivotKeyName(),
         ];
 
         $this->stub = 'entity-relations-belongs-to-many-methods';
@@ -102,6 +111,6 @@ class FormRequestsTestCasesFactory
 
     public function createDefault()
     {
-        return "";
+        return '';
     }
 }

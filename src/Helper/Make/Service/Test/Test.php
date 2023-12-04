@@ -2,19 +2,23 @@
 
 namespace EslamDDD\SkelotonPackage\Helper\Make\Service\Test;
 
+use Eslam\SkelotonPackage\Helper\NamespaceCreator;
 use ReflectionClass;
 use ReflectionMethod;
+<<<<<<< HEAD
 use Illuminate\Support\Str;
 use EslamDDD\SkelotonPackage\Helper\ArrayFormatter;
 use EslamDDD\SkelotonPackage\Helper\NamespaceCreator;
 use EslamDDD\SkelotonPackage\Helper\Path;
 use EslamDDD\SkelotonPackage\Helper\Stub;
+=======
+>>>>>>> 93eb304d6b785e161e437b08fcd86eddcbeaf2c2
 
 abstract class Test
 {
     protected $testCases = ['basic' => [], 'keep' => ''];
 
-    protected abstract function generate();
+    abstract protected function generate();
 
     public function setUp(string $content)
     {
@@ -54,13 +58,14 @@ abstract class Test
             );
         }
 
-        $this->testCases[$containerKey] = join("\n", $this->testCases[$containerKey]);
+        $this->testCases[$containerKey] = implode("\n", $this->testCases[$containerKey]);
     }
 
     public function instantiateJustCreated(array $dir, $class, ...$args)
     {
         array_push($dir, $class);
         $model = NamespaceCreator::segments(...$dir);
+
         return new $model(...$args);
     }
 }

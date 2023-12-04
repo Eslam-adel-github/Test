@@ -2,11 +2,14 @@
 
 namespace EslamDDD\SkelotonPackage\Helper\Layouts;
 
-class LayoutFactory{
+class LayoutFactory
+{
+    private function __construct()
+    {
+    }
 
-    private function __construct(){}
-
-    public static function create($type,$options = []){
+    public static function create($type, $options = [])
+    {
 
         switch ($type) {
             case 'lte':
@@ -20,5 +23,4 @@ class LayoutFactory{
                 break;
         }
     }
-
 }

@@ -2,6 +2,7 @@
 
 namespace EslamDDD\SkelotonPackage\Helper\Make\Service\Test;
 
+<<<<<<< HEAD
 use ReflectionClass;
 use ReflectionMethod;
 use Illuminate\Support\Arr;
@@ -14,13 +15,24 @@ use EslamDDD\SkelotonPackage\Helper\NamespaceCreator;
 use EslamDDD\SkelotonPackage\Helper\Make\Service\Test\Test;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\Relation;
+=======
+use Eslam\SkelotonPackage\Helper\Make\Maker;
+use Eslam\SkelotonPackage\Helper\NamespaceCreator;
+use Eslam\SkelotonPackage\Helper\Path;
+use Illuminate\Support\Str;
+use ReflectionClass;
+>>>>>>> 93eb304d6b785e161e437b08fcd86eddcbeaf2c2
 
 class EntitiesRelations extends Test
 {
     private $domain;
+
     private $realtionsDirPath;
+
     private $entityShortName;
+
     private $relationshipMethods;
+
     private $TestCommand;
 
     public function __construct(Maker $TestCommand, string $domain)
@@ -54,7 +66,7 @@ class EntitiesRelations extends Test
             $dir = Path::toDomain($this->domain, 'Tests', 'Unit', 'Entities', 'Traits', 'Relations');
             $content = Str::of($this->TestCommand->getStub('entity-relations-test'))
                 ->replace(array_keys($placeholders), array_values($placeholders));
-            $classFullName = $realtion . 'Test';
+            $classFullName = $realtion.'Test';
             $this->TestCommand->save($dir, $classFullName, 'php', $content);
         }
     }
@@ -74,6 +86,7 @@ class EntitiesRelations extends Test
             $testCases = new RelationsTestCasesFactory($this->TestCommand, $this->relationClass, $method->name);
             array_push($content, $testCases->make());
         }
-        return join("\n", $content);
+
+        return implode("\n", $content);
     }
 }

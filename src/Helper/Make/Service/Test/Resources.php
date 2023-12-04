@@ -2,6 +2,7 @@
 
 namespace EslamDDD\SkelotonPackage\Helper\Make\Service\Test;
 
+<<<<<<< HEAD
 use Illuminate\Support\Str;
 use EslamDDD\SkelotonPackage\Helper\Path;
 use EslamDDD\SkelotonPackage\Helper\Naming;
@@ -10,17 +11,26 @@ use EslamDDD\SkelotonPackage\Helper\Make\Maker;
 use Illuminate\Support\Facades\File;
 use EslamDDD\SkelotonPackage\Helper\NamespaceCreator;
 use EslamDDD\SkelotonPackage\Helper\Make\Service\Test\Test;
+=======
+use Eslam\SkelotonPackage\Helper\Make\Maker;
+use Eslam\SkelotonPackage\Helper\Path;
+>>>>>>> 93eb304d6b785e161e437b08fcd86eddcbeaf2c2
 use Illuminate\Http\Resources\Json\JsonResource;
-use Src\Domain\User\Http\Resources\User\UserResource;
+use Illuminate\Support\Str;
 use ReflectionClass;
 
 class Resources extends Test
 {
     private $domain;
+
     private $entitiesDirPath;
+
     private $entities;
+
     private $entityInstance;
+
     private $entityShortName;
+
     private $TestCommand;
 
     public function __construct(Maker $TestCommand, string $domain)
@@ -35,9 +45,9 @@ class Resources extends Test
     public function generate()
     {
         foreach ($this->entities as $entity) {
-            $resource = $entity . 'Resource';
+            $resource = $entity.'Resource';
             $this->entityInstance = $this->instantiateJustCreated($this->entitiesDirPath, $entity);
-            $entityNameSpace = join('\\', array_merge($this->entitiesDirPath, [$entity]));
+            $entityNameSpace = implode('\\', array_merge($this->entitiesDirPath, [$entity]));
             $this->entityRecord = factory($entityNameSpace)->make([
                 'id' => 1,
             ]);
@@ -51,7 +61,7 @@ class Resources extends Test
                 '{{DOMAIN}}' => $this->domain,
                 '{{TESTCASES}}' => $this->testCases['basic'],
                 // '{{JWTMETHODS}}' => $this->createJWTMethods(),
-                '{{SETUP}}' => $this->createSetupMethod($entity)
+                '{{SETUP}}' => $this->createSetupMethod($entity),
             ];
 
             $dir = Path::toDomain($this->domain, 'Tests', 'Unit', 'Entities');
@@ -59,7 +69,7 @@ class Resources extends Test
             $content = Str::of($this->TestCommand->getStub('resource-test'))
                 ->replace(array_keys($placeholders), array_values($placeholders));
 
-            $classFullName = $resource . 'Test';
+            $classFullName = $resource.'Test';
 
             $this->TestCommand->save($dir, $classFullName, 'php', $content);
         }
@@ -67,14 +77,14 @@ class Resources extends Test
 
     protected function createNormalresource(JsonResource $resourceInstance)
     {
-        $resource = explode("\\", get_class($resourceInstance));
-        $entity = explode("\\", get_class($this->entityInstance));
+        $resource = explode('\\', get_class($resourceInstance));
+        $entity = explode('\\', get_class($this->entityInstance));
 
         $placeholders = [
             '{{RESOURCE}}' => end($resource),
             '{{RSOURCE_CC}}' => Str::camel(end($resource)),
-            '{{CONTENT}}' => join('","', array_keys($resourceInstance->resolve())),
-            '{{ENTITY_LC}}' => Str::lower(end($entity))
+            '{{CONTENT}}' => implode('","', array_keys($resourceInstance->resolve())),
+            '{{ENTITY_LC}}' => Str::lower(end($entity)),
         ];
 
         return Str::of($this->TestCommand->getStub('resource-normal-test'))
@@ -91,8 +101,8 @@ class Resources extends Test
         $placeholders = [
             '{{ENTITY_LC}}' => Str::lower($entity),
             '{{ENTITY}}' => Str::ucfirst($entity),
-            '{{RESOURCE_CC}}' => Str::lower($entity) . 'Resource',
-            '{{RESOURCE}}' => $entity . 'Resource',
+            '{{RESOURCE_CC}}' => Str::lower($entity).'Resource',
+            '{{RESOURCE}}' => $entity.'Resource',
         ];
 
         return Str::of($this->TestCommand->getStub('entity-setup-method'))->replace(array_keys($placeholders), array_values($placeholders));

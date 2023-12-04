@@ -2,6 +2,7 @@
 
 namespace EslamDDD\SkelotonPackage\Helper\Make\Types;
 
+<<<<<<< HEAD
 use EslamDDD\SkelotonPackage\Helper\FileCreator;
 use EslamDDD\SkelotonPackage\Helper\Make\Maker;
 use EslamDDD\SkelotonPackage\Helper\NamespaceCreator;
@@ -9,45 +10,47 @@ use EslamDDD\SkelotonPackage\Helper\Naming;
 use EslamDDD\SkelotonPackage\Helper\Path;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Artisan;
+=======
+use Eslam\SkelotonPackage\Helper\Make\Maker;
+use Eslam\SkelotonPackage\Helper\Path;
+>>>>>>> 93eb304d6b785e161e437b08fcd86eddcbeaf2c2
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
 
 class Sync extends Maker
 {
     /**
      * Options to be available once Command-Type is called
      *
-     * @return Array
+     * @return array
      */
     public $options = [];
 
     /**
      * Return options that should be treated as choices
      *
-     * @return Array
+     * @return array
      */
     public $allowChoices = [];
 
     /**
      * Check if the current options is True/False question
      *
-     * @return Array
+     * @return array
      */
     public $booleanOptions = [];
 
     /**
      * Check if the current options is requesd based on other option
      *
-     * @return Array
+     * @return array
      */
     public $requiredUnless = [];
-
 
     /**
      * Check if the current options is requesd based on other option
      *
-     * @return Array
+     * @return array
      */
     public $sync = [];
 
@@ -56,47 +59,50 @@ class Sync extends Maker
      *
      * @return Boll
      */
-    public function service(Array $values):Bool{
+    public function service(array $values): bool
+    {
         $this->command->info('Not implemented');
+
         return true;
-        if(!File::exists(base_path('columns-match').'.json')){
+        if (! File::exists(base_path('columns-match').'.json')) {
             $template_name = [
                 [
-                    "table"=>"migration_table_name",
-                    "sync"=>[
+                    'table' => 'migration_table_name',
+                    'sync' => [
                         [
-                            "type"=>"Entity | API Resource | Request",
-                            "domain"=>"Post",
-                            "name"=>"Post"
-                        ]
-                    ]
-                ]
+                            'type' => 'Entity | API Resource | Request',
+                            'domain' => 'Post',
+                            'name' => 'Post',
+                        ],
+                    ],
+                ],
             ];
-            File::put(base_path('columns-match').'.json',json_encode($template_name,JSON_PRETTY_PRINT));
+            File::put(base_path('columns-match').'.json', json_encode($template_name, JSON_PRETTY_PRINT));
             $this->command->error('Please fill columns-match.json file');
+
             return false;
         }
 
-        $sync =json_decode(File::get(base_path('columns-match').'.json'),true);
+        $sync = json_decode(File::get(base_path('columns-match').'.json'), true);
 
-        $tables = join("','",collect($sync)->map(function($el){
+        $tables = implode("','", collect($sync)->map(function ($el) {
             return $el['table'];
         })->toArray());
 
-        $columns =  DB::select(DB::raw("SELECT *
+        $columns = DB::select(DB::raw("SELECT *
         FROM INFORMATION_SCHEMA.COLUMNS
         WHERE TABLE_NAME in('$tables') AND TABLE_SCHEMA = '".env('DB_DATABASE')."'"));
 
-        $_columns=[];
-        foreach($columns as $column){
-            $_columns[$column->TABLE_NAME][]=$column->COLUMN_NAME;
+        $_columns = [];
+        foreach ($columns as $column) {
+            $_columns[$column->TABLE_NAME][] = $column->COLUMN_NAME;
         }
 
-        foreach($sync as $t){
+        foreach ($sync as $t) {
 
-            foreach($t['sync'] as $type){
+            foreach ($t['sync'] as $type) {
 
-                $this->{$type['type']}($type['domain'],$type['name'],$_columns[$t['table']]);
+                $this->{$type['type']}($type['domain'], $type['name'], $_columns[$t['table']]);
 
             }
         }
@@ -104,11 +110,10 @@ class Sync extends Maker
         return true;
     }
 
-    private function entity($domain,$name,$columns){
-        $file= File::get(Path::toDomain($domain,'Entities',"$name.php"));
+    private function entity($domain, $name, $columns)
+    {
+        $file = File::get(Path::toDomain($domain, 'Entities', "$name.php"));
 
-
-        dd($file,$columns);
+        dd($file, $columns);
     }
-
 }

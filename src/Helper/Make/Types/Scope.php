@@ -2,11 +2,17 @@
 
 namespace EslamDDD\SkelotonPackage\Helper\Make\Types;
 
+<<<<<<< HEAD
 use EslamDDD\SkelotonPackage\Helper\FileCreator;
 use EslamDDD\SkelotonPackage\Helper\Make\Maker;
 use EslamDDD\SkelotonPackage\Helper\NamespaceCreator;
 use EslamDDD\SkelotonPackage\Helper\Naming;
 use EslamDDD\SkelotonPackage\Helper\Path;
+=======
+use Eslam\SkelotonPackage\Helper\Make\Maker;
+use Eslam\SkelotonPackage\Helper\Naming;
+use Eslam\SkelotonPackage\Helper\Path;
+>>>>>>> 93eb304d6b785e161e437b08fcd86eddcbeaf2c2
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
@@ -15,7 +21,7 @@ class Scope extends Maker
     /**
      * Options to be available once Command-Type is called
      *
-     * @return Array
+     * @return array
      */
     public $options = [
         'name',
@@ -25,34 +31,31 @@ class Scope extends Maker
     /**
      * Return options that should be treated as choices
      *
-     * @return Array
+     * @return array
      */
     public $allowChoices = [
-        'domain'
+        'domain',
     ];
 
     /**
      * Fill all placeholders in the stub file
-     *
-     * @param array $values
-     * @return boolean
      */
-    public function service(Array $values = []):bool{
+    public function service(array $values = []): bool
+    {
 
-        $name = Naming::class($values['name']. ' scope');
+        $name = Naming::class($values['name'].' scope');
 
         $placeholders = [
             '{{NAME}}' => $name,
             '{{DOMAIN}}' => $values['domain'],
         ];
 
-        $dir = Path::toDomain($values['domain'],'Entities','Scopes');
+        $dir = Path::toDomain($values['domain'], 'Entities', 'Scopes');
 
         $content = Str::of($this->getStub('scope'))
-                        ->replace(array_keys($placeholders),array_values($placeholders));
-        $this->save($dir,$name,'php',$content);
+            ->replace(array_keys($placeholders), array_values($placeholders));
+        $this->save($dir, $name, 'php', $content);
 
         return true;
     }
-
 }

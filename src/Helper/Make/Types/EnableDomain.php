@@ -2,6 +2,7 @@
 
 namespace EslamDDD\SkelotonPackage\Helper\Make\Types;
 
+<<<<<<< HEAD
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Traits\Macroable;
 use EslamDDD\SkelotonPackage\Helper\FileCreator;
@@ -10,10 +11,12 @@ use EslamDDD\SkelotonPackage\Helper\NamespaceCreator;
 use EslamDDD\SkelotonPackage\Helper\Naming;
 use EslamDDD\SkelotonPackage\Helper\Path;
 use Illuminate\Support\Facades\Artisan;
+=======
+use Eslam\SkelotonPackage\Helper\Make\Maker;
+use Eslam\SkelotonPackage\Helper\NamespaceCreator;
+>>>>>>> 93eb304d6b785e161e437b08fcd86eddcbeaf2c2
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-
-use MohamedReda\DDD\Helper\Make\Types\Rule;
 
 class EnableDomain extends Maker
 {
@@ -23,10 +26,11 @@ class EnableDomain extends Maker
      * @var string
      */
     private $name;
+
     /**
      * Options to be available once Command-Type is called
      *
-     * @return Array
+     * @return array
      */
     public $options = [
         'domain',
@@ -35,7 +39,7 @@ class EnableDomain extends Maker
     /**
      * Return options that should be treated as choices
      *
-     * @return Array
+     * @return array
      */
     public $allowChoices = [
         'domain',
@@ -44,14 +48,14 @@ class EnableDomain extends Maker
     /**
      * Check if the current options is True/False question
      *
-     * @return Array
+     * @return array
      */
     public $booleanOptions = [];
 
     /**
      * Check if the current options is requesd based on other option
      *
-     * @return Array
+     * @return array
      */
     public $requiredUnless = [];
 
@@ -60,24 +64,28 @@ class EnableDomain extends Maker
      *
      * @return Boll
      */
-    public function service(Array $values):Bool{
-        $this->name=$values['domain'];
+    public function service(array $values): bool
+    {
+        $this->name = $values['domain'];
 
         return $this->modifyConfig();
 
     }
-    public function modifyConfig(){
+
+    public function modifyConfig()
+    {
 
         // Add Service Provider to config/app
-        $service_provider = NamespaceCreator::Segments("Src","Domain",$this->name,"Providers","DomainServiceProvider");
+        $service_provider = NamespaceCreator::Segments('Src', 'Domain', $this->name, 'Providers', 'DomainServiceProvider');
         $app = File::get(config_path('app.php'));
 
-       if(Str::of($app)->contains([$service_provider],[false]) ==false) {
-           $content = Str::of($app)->replace("###DOMAINS SERVICE PROVIDERS###", $service_provider . "::class,\n\t\t###DOMAINS SERVICE PROVIDERS###");
-           $this->save(config_path(), 'app', 'php', $content);
-           return true;
-       }
-        error_log("This Domain Is Already Enabled");
+        if (Str::of($app)->contains([$service_provider], [false]) == false) {
+            $content = Str::of($app)->replace('###DOMAINS SERVICE PROVIDERS###', $service_provider."::class,\n\t\t###DOMAINS SERVICE PROVIDERS###");
+            $this->save(config_path(), 'app', 'php', $content);
+
+            return true;
+        }
+        error_log('This Domain Is Already Enabled');
 
         return false;
     }

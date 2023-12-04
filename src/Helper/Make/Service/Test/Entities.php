@@ -2,9 +2,13 @@
 
 namespace EslamDDD\SkelotonPackage\Helper\Make\Service\Test;
 
-use ReflectionClass;
+use Eslam\SkelotonPackage\Helper\Make\Maker;
+use Eslam\SkelotonPackage\Helper\NamespaceCreator;
+use Eslam\SkelotonPackage\Helper\Path;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+<<<<<<< HEAD
 use EslamDDD\SkelotonPackage\Helper\Path;
 use EslamDDD\SkelotonPackage\Helper\Naming;
 use EslamDDD\SkelotonPackage\Helper\Make\Maker;
@@ -12,13 +16,20 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Database\Eloquent\Model;
 use EslamDDD\SkelotonPackage\Helper\NamespaceCreator;
 use EslamDDD\SkelotonPackage\Helper\Make\Service\Test\Test;
+=======
+use ReflectionClass;
+>>>>>>> 93eb304d6b785e161e437b08fcd86eddcbeaf2c2
 
 class Entities extends Test
 {
     private $domain;
+
     private $entitiesDirPath;
+
     private $entities;
+
     private $entityShortName;
+
     private $TestCommand;
 
     public function __construct(Maker $TestCommand, string $domain)
@@ -43,7 +54,7 @@ class Entities extends Test
                 '{{DOMAIN}}' => $this->domain,
                 '{{TESTCASES}}' => $this->testCases['basic'],
                 '{{JWTMETHODS}}' => $this->createJWTMethods(),
-                '{{SETUP}}' => $this->createSetupMethod($entity)
+                '{{SETUP}}' => $this->createSetupMethod($entity),
             ];
 
             $dir = Path::toDomain($this->domain, 'Tests', 'Unit', 'Entities');
@@ -51,7 +62,7 @@ class Entities extends Test
             $content = Str::of($this->TestCommand->getStub('entity-test'))
                 ->replace(array_keys($placeholders), array_values($placeholders));
 
-            $classFullName = $name . 'Test';
+            $classFullName = $name.'Test';
 
             $this->TestCommand->save($dir, $classFullName, 'php', $content);
         }
@@ -62,8 +73,8 @@ class Entities extends Test
         $placeholders = [
             '{{CONTENT}}' => sprintf('["%s"]', implode('","', $entity->getFillable())),
             '{{ENTITY_LC}}' => Str::lower($this->entityShortName),
-            '{{METHOD}}' => "getFillable()",
-            '{{CONSTANT}}' => 'has_fillable'
+            '{{METHOD}}' => 'getFillable()',
+            '{{CONSTANT}}' => 'has_fillable',
         ];
 
         return Str::of($this->TestCommand->getStub('entity-constants-test-case'))->replace(array_keys($placeholders), array_values($placeholders));
@@ -74,8 +85,8 @@ class Entities extends Test
         $placeholders = [
             '{{CONTENT}}' => sprintf('["%s"]', implode('","', $entity->getHidden())),
             '{{ENTITY_LC}}' => Str::lower($this->entityShortName),
-            '{{METHOD}}' => "getHidden()",
-            '{{CONSTANT}}' => 'has_hidden'
+            '{{METHOD}}' => 'getHidden()',
+            '{{CONSTANT}}' => 'has_hidden',
         ];
 
         return Str::of($this->TestCommand->getStub('entity-constants-test-case'))->replace(array_keys($placeholders), array_values($placeholders));
@@ -86,8 +97,8 @@ class Entities extends Test
         $placeholders = [
             '{{CONTENT}}' => sprintf('"%s"', $entity->getTable()),
             '{{ENTITY_LC}}' => Str::lower($this->entityShortName),
-            '{{METHOD}}' => "getTable()",
-            '{{CONSTANT}}' => 'has_' . Str::plural($this->entityShortName) . '_table'
+            '{{METHOD}}' => 'getTable()',
+            '{{CONSTANT}}' => 'has_'.Str::plural($this->entityShortName).'_table',
         ];
 
         return Str::of($this->TestCommand->getStub('entity-constants-test-case'))->replace(array_keys($placeholders), array_values($placeholders));
@@ -103,7 +114,7 @@ class Entities extends Test
                 '{{CONTENT}}' => sprintf('"%s"', $value),
                 '{{ENTITY_LC}}' => Str::lower($this->entityShortName),
                 '{{METHOD}}' => sprintf('getCasts()["%s"]', $key),
-                '{{CONSTANT}}' =>  sprintf("casts_%s_to_%s", $key, $value),
+                '{{CONSTANT}}' => sprintf('casts_%s_to_%s', $key, $value),
             ];
 
             array_push(
@@ -116,7 +127,7 @@ class Entities extends Test
             );
         }
 
-        return join("\n", $castsTestCases);
+        return implode("\n", $castsTestCases);
     }
 
     protected function createLogNameTestCases(Model $entity)
@@ -130,8 +141,8 @@ class Entities extends Test
                 '{{METHOD-NAME}}' => sprintf('log_attributes_with_name_of_%s', Str::lower($logName)),
                 '{{CONTENT}}' => sprintf('"%s"', $logName),
                 '{{ENTITY_LC}}' => Str::lower($this->entityShortName),
-                '{{METHOD}}' => sprintf("getValue(\$this->%s)", Str::lower($this->entityShortName)),
-                '{{CONSTANT}}' => 'logName'
+                '{{METHOD}}' => sprintf('getValue($this->%s)', Str::lower($this->entityShortName)),
+                '{{CONSTANT}}' => 'logName',
             ];
 
             return Str::of($this->TestCommand->getStub('entity-protected-constants-test-case'))->replace(array_keys($placeholders), array_values($placeholders));
@@ -149,8 +160,8 @@ class Entities extends Test
                 '{{METHOD-NAME}}' => sprintf('log_all_attributes_of_%s', Str::lower($this->entityShortName)),
                 '{{CONTENT}}' => sprintf('["%s"]', $log[0]),
                 '{{ENTITY_LC}}' => Str::lower($this->entityShortName),
-                '{{METHOD}}' => "getValue()",
-                '{{CONSTANT}}' => 'logAttributes'
+                '{{METHOD}}' => 'getValue()',
+                '{{CONSTANT}}' => 'logAttributes',
             ];
 
             return Str::of($this->TestCommand->getStub('entity-protected-constants-test-case'))->replace(array_keys($placeholders), array_values($placeholders));
@@ -179,16 +190,19 @@ class Entities extends Test
             );
         }
 
-        return join("\n", $tratisTestCases);
+        return implode("\n", $tratisTestCases);
     }
+
     public function createJWTMethods()
     {
         $interfaces = array_keys($this->entityReflection->getInterfaces());
 
-        if (!in_array(
+        if (! in_array(
             "Tymon\JWTAuth\Contracts\JWTSubject",
             $interfaces
-        )) return;
+        )) {
+            return;
+        }
 
         return Str::of($this->TestCommand->getStub('entity-jwt-test-case'));
     }
@@ -197,7 +211,7 @@ class Entities extends Test
     {
         $placeholders = [
             '{{ENTITY_LC}}' => Str::lower($entity),
-            '{{ENTITY}}' => Str::ucfirst($entity)
+            '{{ENTITY}}' => Str::ucfirst($entity),
         ];
 
         return Str::of($this->TestCommand->getStub('entity-setup-method'))->replace(array_keys($placeholders), array_values($placeholders));

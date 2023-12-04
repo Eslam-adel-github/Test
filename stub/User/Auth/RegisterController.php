@@ -2,11 +2,11 @@
 
 namespace Src\Domain\User\Http\Controllers\Auth;
 
-use Src\Domain\User\Entities\User;
-use Src\Infrastructure\Http\AbstractControllers\BaseController as Controller;
+use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use Src\Domain\User\Entities\User;
+use Src\Infrastructure\Http\AbstractControllers\BaseController as Controller;
 
 class RegisterController extends Controller
 {
@@ -64,7 +64,6 @@ class RegisterController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -79,7 +78,6 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
      * @return \App\User
      */
     protected function create(array $data)
@@ -99,8 +97,7 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         return view("{$this->domainAlias}::{$this->viewPath}.auth.register", [
-            'title' => __('main.login')
+            'title' => __('main.login'),
         ]);
     }
-
 }

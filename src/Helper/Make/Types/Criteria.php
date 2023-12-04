@@ -2,11 +2,17 @@
 
 namespace EslamDDD\SkelotonPackage\Helper\Make\Types;
 
+<<<<<<< HEAD
 use EslamDDD\SkelotonPackage\Helper\FileCreator;
 use EslamDDD\SkelotonPackage\Helper\Make\Maker;
 use EslamDDD\SkelotonPackage\Helper\NamespaceCreator;
 use EslamDDD\SkelotonPackage\Helper\Naming;
 use EslamDDD\SkelotonPackage\Helper\Path;
+=======
+use Eslam\SkelotonPackage\Helper\Make\Maker;
+use Eslam\SkelotonPackage\Helper\Naming;
+use Eslam\SkelotonPackage\Helper\Path;
+>>>>>>> 93eb304d6b785e161e437b08fcd86eddcbeaf2c2
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
@@ -15,43 +21,41 @@ class Criteria extends Maker
     /**
      * Options to be available once Command-Type is called
      *
-     * @return Array
+     * @return array
      */
     public $options = [
         'name',
-        'domain'
+        'domain',
     ];
 
     /**
      * Return options that should be treated as choices
      *
-     * @return Array
+     * @return array
      */
     public $allowChoices = [
-        'domain'
+        'domain',
     ];
 
     /**
      * Check if the current options is True/False question
      *
-     * @return Array
+     * @return array
      */
     public $booleanOptions = [];
 
     /**
      * Check if the current options is requesd based on other option
      *
-     * @return Array
+     * @return array
      */
     public $requiredUnless = [];
 
     /**
      * Fill all placeholders in the stub file
-     *
-     * @param array $values
-     * @return boolean
      */
-    public function service(Array $values = []):bool{
+    public function service(array $values = []): bool
+    {
 
         $name = Naming::class($values['name']);
 
@@ -62,18 +66,17 @@ class Criteria extends Maker
 
         $className = $name.'Criteria';
 
-        $dir = Path::toDomain($values['domain'],'Criteria');
+        $dir = Path::toDomain($values['domain'], 'Criteria');
 
-        if(!File::isDirectory($dir)){
+        if (! File::isDirectory($dir)) {
             File::makeDirectory($dir);
         }
 
         $content = Str::of($this->getStub('criteria'))
-                        ->replace(array_keys($placeholders),array_values($placeholders));
+            ->replace(array_keys($placeholders), array_values($placeholders));
 
-        $this->save($dir,$className,'php',$content);
+        $this->save($dir, $className, 'php', $content);
 
         return true;
     }
-
 }

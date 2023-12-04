@@ -2,6 +2,7 @@
 
 namespace EslamDDD\SkelotonPackage\Helper\Make\Types;
 
+<<<<<<< HEAD
 use Reflection;
 use ReflectionClass;
 use Illuminate\Support\Str;
@@ -13,62 +14,67 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Artisan;
 use EslamDDD\SkelotonPackage\Helper\Make\Types\Allow;
 use EslamDDD\SkelotonPackage\Helper\NamespaceCreator;
+=======
+use Eslam\SkelotonPackage\Helper\Make\Maker;
+use Eslam\SkelotonPackage\Helper\NamespaceCreator;
+use Eslam\SkelotonPackage\Helper\Naming;
+use Eslam\SkelotonPackage\Helper\Path;
+use Illuminate\Support\Facades\File;
+use ReflectionClass;
+>>>>>>> 93eb304d6b785e161e437b08fcd86eddcbeaf2c2
 
 class Relations extends Maker
 {
     /**
      * Options to be available once Command-Type is called
      *
-     * @return Array
+     * @return array
      */
     public $options = [];
 
     /**
      * Return options that should be treated as choices
      *
-     * @return Array
+     * @return array
      */
     public $allowChoices = [];
 
     /**
      * Check if the current options is True/False question
      *
-     * @return Array
+     * @return array
      */
     public $booleanOptions = [];
 
     /**
      * Check if the current options is requesd based on other option
      *
-     * @return Array
+     * @return array
      */
     public $requiredUnless = [];
 
     /**
      * Fill all placeholders in the stub file
-     *
-     * @param array $values
-     * @return boolean
      */
     public function service(array $values = []): bool
     {
         $domains = Path::getDomains();
 
         $this->fillRelationsFileForEachEntity($domains);
+
         return true;
     }
 
     /**
      * Fill Relations file for each file
      *
-     * @param Array $domains
      * @return void
      */
     public function fillRelationsFileForEachEntity(array $domains)
     {
 
         foreach ($domains as $domain) {
-            if (!File::isDirectory(Path::build('app', 'Domain', $domain, 'Entities'))) {
+            if (! File::isDirectory(Path::build('app', 'Domain', $domain, 'Entities'))) {
                 continue;
             }
             $entities = Path::files('App', 'Domain', $domain, 'Entities');
@@ -89,16 +95,16 @@ class Relations extends Maker
                 $this->reflectEntitesMorphedByMany($reflector, $relations_stub, $repo_stubs);
 
                 if (count($relations_stub)) {
-                    $relationsNamespace = NamespaceCreator::segments('App', 'Domain', $domain, 'Entities', 'Traits', 'Relations', $entity . 'Relations');
+                    $relationsNamespace = NamespaceCreator::segments('App', 'Domain', $domain, 'Entities', 'Traits', 'Relations', $entity.'Relations');
                     $relationReflection = new ReflectionClass($relationsNamespace);
                     $relationFile = File::get($relationReflection->getFileName());
-                    $relationContent = join("\n", $relations_stub);
+                    $relationContent = implode("\n", $relations_stub);
                     $content = $this->replace_between($relationFile, '###allowedRelations###', '###\allowedRelations###', $relationContent);
                     File::put($relationReflection->getFileName(), $content);
                 }
 
                 if (count($repo_stubs)) {
-                    $relationsRepoNamespace = NamespaceCreator::segments('App', 'Domain', $domain, 'Repositories', 'Eloquent', $entity . 'RepositoryEloquent');
+                    $relationsRepoNamespace = NamespaceCreator::segments('App', 'Domain', $domain, 'Repositories', 'Eloquent', $entity.'RepositoryEloquent');
                     $relationRepoReflection = new ReflectionClass($relationsRepoNamespace);
                     $relationRepoFile = File::get($relationRepoReflection->getFileName());
 
@@ -119,10 +125,10 @@ class Relations extends Maker
     /**
      * Replace String betwwen to atring
      *
-     * @param string $str
-     * @param string $needle_start
-     * @param string $needle_end
-     * @param string $replacement
+     * @param  string  $str
+     * @param  string  $needle_start
+     * @param  string  $needle_end
+     * @param  string  $replacement
      * @return void
      */
     public function replace_between($str, $needle_start, $needle_end, $replacement)
@@ -139,7 +145,6 @@ class Relations extends Maker
     /**
      * Get class related to belongsTo
      *
-     * @param ReflectionClass $reflector
      * @return void
      */
     private function reflectEntitesBelongsTo(ReflectionClass $reflector, &$relations_stub, &$repo_stubs)
@@ -152,13 +157,13 @@ class Relations extends Maker
             $belongsToRelationsData = $relations->getValue($reflector->newInstanceWithoutConstructor());
 
             foreach ($belongsToRelationsData as $class) {
-                $classRef =  new \ReflectionClass($class);
+                $classRef = new \ReflectionClass($class);
 
                 $case = sprintf('
                     public function %s() : BelongsTo{
                         return $this->belongsTo(%s);
                     }
-                ', strtolower($classRef->getShortName()), '\\' . $class . '::class');
+                ', strtolower($classRef->getShortName()), '\\'.$class.'::class');
                 array_push($relations_stub, $case);
 
                 $entity = $classRef->getName();
@@ -177,7 +182,6 @@ class Relations extends Maker
     /**
      * Get class related to hasMany
      *
-     * @param ReflectionClass $reflector
      * @return void
      */
     private function reflectEntitesHasMany(ReflectionClass $reflector, &$relations_stub, &$repo_stubs)
@@ -190,12 +194,12 @@ class Relations extends Maker
             $hasManyRelationsData = $relations->getValue($reflector->newInstanceWithoutConstructor());
 
             foreach ($hasManyRelationsData as $class) {
-                $classRef =  new \ReflectionClass($class);
+                $classRef = new \ReflectionClass($class);
                 $case = sprintf('
                     public function %s() : HasMany{
                         return $this->hasMany(%s);
                     }
-                ', Naming::tableName($classRef->getShortName()), '\\' . $class . '::class');
+                ', Naming::tableName($classRef->getShortName()), '\\'.$class.'::class');
                 array_push($relations_stub, $case);
 
                 $entity = $classRef->getName();
@@ -203,7 +207,7 @@ class Relations extends Maker
                 array_push(
                     $repo_stubs,
                     [
-                        'key' => Naming::tableName($classRef->getShortName()) . '',
+                        'key' => Naming::tableName($classRef->getShortName()).'',
                         'rep' => NamespaceCreator::Segments('App', 'Domain', $domain, 'Repositories', 'Eloquent', "{$classRef->getShortName()}RepositoryEloquent::class"),
                     ]
                 );
@@ -214,9 +218,8 @@ class Relations extends Maker
     /**
      * Get class related to BelongsToMany
      *
-     * @param ReflectionClass $reflector
-     * @param array $relations_stub
-     * @param array $repo_stubs
+     * @param  array  $relations_stub
+     * @param  array  $repo_stubs
      * @return void
      */
     private function reflectEntitesBelongsToMany(ReflectionClass $reflector, &$relations_stub, &$repo_stubs)
@@ -229,11 +232,11 @@ class Relations extends Maker
             $belongsToManyRelationsData = $relations->getValue($reflector->newInstanceWithoutConstructor());
 
             foreach ($belongsToManyRelationsData as $class) {
-                $classRef =  new \ReflectionClass($class);
+                $classRef = new \ReflectionClass($class);
                 $case = sprintf('public function %s() : BelongsToMany{
                         return $this->belongsToMany(%s);
                     }
-                ', strtolower($classRef->getShortName()), '\\' . $class . '::class');
+                ', strtolower($classRef->getShortName()), '\\'.$class.'::class');
                 array_push($relations_stub, $case);
 
                 $entity = $classRef->getName();
@@ -241,7 +244,7 @@ class Relations extends Maker
                 array_push(
                     $repo_stubs,
                     [
-                        'key' => Naming::tableName($classRef->getShortName()) . '',
+                        'key' => Naming::tableName($classRef->getShortName()).'',
                         'rep' => NamespaceCreator::Segments('App', 'Domain', $domain, 'Repositories', 'Eloquent', "{$classRef->getShortName()}RepositoryEloquent::class"),
                     ]
                 );
@@ -252,9 +255,8 @@ class Relations extends Maker
     /**
      * Get class related to HasOne
      *
-     * @param ReflectionClass $reflector
-     * @param array $relations_stub
-     * @param array $repo_stubs
+     * @param  array  $relations_stub
+     * @param  array  $repo_stubs
      * @return void
      */
     private function reflectEntitesHasOne(ReflectionClass $reflector, &$relations_stub, &$repo_stubs)
@@ -267,13 +269,13 @@ class Relations extends Maker
             $hasOneRelationsData = $relations->getValue($reflector->newInstanceWithoutConstructor());
 
             foreach ($hasOneRelationsData as $class) {
-                $classRef =  new \ReflectionClass($class);
+                $classRef = new \ReflectionClass($class);
 
                 $case = sprintf('
                     public function %s() : HasOne{
                         return $this->hasOne(%s);
                     }
-                ', strtolower($classRef->getShortName()), '\\' . $class . '::class');
+                ', strtolower($classRef->getShortName()), '\\'.$class.'::class');
                 array_push($relations_stub, $case);
 
                 $entity = $classRef->getName();
@@ -292,9 +294,8 @@ class Relations extends Maker
     /**
      * Get class related to MorphTo
      *
-     * @param ReflectionClass $reflector
-     * @param array $relations_stub
-     * @param array $repo_stubs
+     * @param  array  $relations_stub
+     * @param  array  $repo_stubs
      * @return void
      */
     private function reflectEntitesMorphTo(ReflectionClass $reflector, &$relations_stub, &$repo_stubs)
@@ -313,7 +314,7 @@ class Relations extends Maker
                     public function %s() : MorphTo{
                         return $this->morphTo();
                     }
-                ', strtolower(rtrim($reflector->getShortName(), 'able') . 'able'));
+                ', strtolower(rtrim($reflector->getShortName(), 'able').'able'));
                 array_push($relations_stub, $case);
 
                 $entity = $reflector->getName();
@@ -332,9 +333,8 @@ class Relations extends Maker
     /**
      * Get class related to MorphOne
      *
-     * @param ReflectionClass $reflector
-     * @param array $relations_stub
-     * @param array $repo_stubs
+     * @param  array  $relations_stub
+     * @param  array  $repo_stubs
      * @return void
      */
     private function reflectEntitesMorphOne(ReflectionClass $reflector, &$relations_stub, &$repo_stubs)
@@ -347,13 +347,13 @@ class Relations extends Maker
             $morphOneRelationsData = $relations->getValue($reflector->newInstanceWithoutConstructor());
 
             foreach ($morphOneRelationsData as $class) {
-                $classRef =  new \ReflectionClass($class);
+                $classRef = new \ReflectionClass($class);
 
                 $case = sprintf('
                     public function %s() : MorphOne{
                         return $this->morphOne(%s,"%s");
                     }
-                ', strtolower(rtrim($classRef->getShortName(), 'able')), '\\' . $class . '::class', strtolower(rtrim($classRef->getShortName(), 'able') . 'able'));
+                ', strtolower(rtrim($classRef->getShortName(), 'able')), '\\'.$class.'::class', strtolower(rtrim($classRef->getShortName(), 'able').'able'));
                 array_push($relations_stub, $case);
 
                 $entity = $classRef->getName();
@@ -372,9 +372,8 @@ class Relations extends Maker
     /**
      * Get class related to MorphMany
      *
-     * @param ReflectionClass $reflector
-     * @param array $relations_stub
-     * @param array $repo_stubs
+     * @param  array  $relations_stub
+     * @param  array  $repo_stubs
      * @return void
      */
     private function reflectEntitesMorphMany(ReflectionClass $reflector, &$relations_stub, &$repo_stubs)
@@ -387,13 +386,13 @@ class Relations extends Maker
             $morphManyRelationsData = $relations->getValue($reflector->newInstanceWithoutConstructor());
 
             foreach ($morphManyRelationsData as $class) {
-                $classRef =  new \ReflectionClass($class);
+                $classRef = new \ReflectionClass($class);
 
                 $case = sprintf('
                     public function %s() : MorphMany{
                         return $this->morphMany(%s,"%s");
                     }
-                ', strtolower(rtrim($classRef->getShortName(), 'able')), '\\' . $class . '::class', strtolower(rtrim($classRef->getShortName(), 'able') . 'able'));
+                ', strtolower(rtrim($classRef->getShortName(), 'able')), '\\'.$class.'::class', strtolower(rtrim($classRef->getShortName(), 'able').'able'));
                 array_push($relations_stub, $case);
 
                 $entity = $classRef->getName();
@@ -412,9 +411,8 @@ class Relations extends Maker
     /**
      * Get class related to MorphToMany
      *
-     * @param ReflectionClass $reflector
-     * @param array $relations_stub
-     * @param array $repo_stubs
+     * @param  array  $relations_stub
+     * @param  array  $repo_stubs
      * @return void
      */
     private function reflectEntitesMorphToMany(ReflectionClass $reflector, &$relations_stub, &$repo_stubs)
@@ -427,13 +425,13 @@ class Relations extends Maker
             $morphToManyRelationsData = $relations->getValue($reflector->newInstanceWithoutConstructor());
 
             foreach ($morphToManyRelationsData as $class) {
-                $classRef =  new \ReflectionClass($class);
+                $classRef = new \ReflectionClass($class);
 
                 $case = sprintf('
                     public function %s() : MorphToMany{
                         return $this->morphToMany(%s,"%s");
                     }
-                ', strtolower(rtrim($classRef->getShortName(), 'able')), '\\' . $class . '::class', strtolower(rtrim($classRef->getShortName(), 'able') . 'able'));
+                ', strtolower(rtrim($classRef->getShortName(), 'able')), '\\'.$class.'::class', strtolower(rtrim($classRef->getShortName(), 'able').'able'));
                 array_push($relations_stub, $case);
 
                 $entity = $classRef->getName();
@@ -452,9 +450,8 @@ class Relations extends Maker
     /**
      * Get class related to MorphByMany
      *
-     * @param ReflectionClass $reflector
-     * @param array $relations_stub
-     * @param array $repo_stubs
+     * @param  array  $relations_stub
+     * @param  array  $repo_stubs
      * @return void
      */
     private function reflectEntitesMorphedByMany(ReflectionClass $reflector, &$relations_stub, &$repo_stubs)
@@ -467,13 +464,13 @@ class Relations extends Maker
             $morphByManyRelationsData = $relations->getValue($reflector->newInstanceWithoutConstructor());
 
             foreach ($morphByManyRelationsData as $class) {
-                $classRef =  new \ReflectionClass($class);
+                $classRef = new \ReflectionClass($class);
 
                 $case = sprintf('
                     public function %s() : MorphByMany{
                         return $this->morphByMany(%s,"%s");
                     }
-                ', strtolower(rtrim($classRef->getShortName(), 'able')), '\\' . $class . '::class', strtolower(rtrim($classRef->getShortName(), 'able') . 'able'));
+                ', strtolower(rtrim($classRef->getShortName(), 'able')), '\\'.$class.'::class', strtolower(rtrim($classRef->getShortName(), 'able').'able'));
                 array_push($relations_stub, $case);
 
                 $entity = $classRef->getName();

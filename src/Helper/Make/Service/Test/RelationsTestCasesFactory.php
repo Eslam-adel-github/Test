@@ -2,20 +2,24 @@
 
 namespace islam\DDD\Helper\Make\Service\Test;
 
-use Illuminate\Support\Str;
-use islam\DDD\Helper\Make\Maker;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Str;
+use islam\DDD\Helper\Make\Maker;
 
 class RelationsTestCasesFactory
 {
     public $testCommand;
+
     public $relationClass;
+
     public $relationMethod;
+
     public $placeholder;
+
     public $stub;
 
     public function __construct(Maker $testCommand, Model $relationClass, string $relationMethod)
@@ -40,7 +44,7 @@ class RelationsTestCasesFactory
                 $this->createBelongsToTestCases();
                 break;
 
-            case BelongsToMany::class;
+            case BelongsToMany::class:
                 $this->createBelongsToManyTestCases();
                 break;
 
@@ -62,7 +66,7 @@ class RelationsTestCasesFactory
             '{{RELATION}}' => 'HasMany',
             '{{RELATION_CC}}' => 'has_many',
             '{{LocalKeyName}}' => $this->relationClass->{$this->relationMethod}()->getLocalKeyName(),
-            '{{ForeignKeyName}}' => $this->relationClass->{$this->relationMethod}()->getForeignKeyName()
+            '{{ForeignKeyName}}' => $this->relationClass->{$this->relationMethod}()->getForeignKeyName(),
         ];
 
         $this->stub = 'entity-relations-has-methods';
@@ -75,7 +79,7 @@ class RelationsTestCasesFactory
             '{{RELATION}}' => 'HasOne',
             '{{RELATION_CC}}' => 'has_one',
             '{{LocalKeyName}}' => $this->relationClass->{$this->relationMethod}()->getLocalKeyName(),
-            '{{ForeignKeyName}}' => $this->relationClass->{$this->relationMethod}()->getForeignKeyName()
+            '{{ForeignKeyName}}' => $this->relationClass->{$this->relationMethod}()->getForeignKeyName(),
         ];
 
         $this->stub = 'entity-relations-has-methods';
@@ -86,7 +90,7 @@ class RelationsTestCasesFactory
         $this->placeholder = [
             '{{RELATED_MODEL}}' => $this->relationMethod,
             '{{OwnerKeyName}}' => $this->relationClass->{$this->relationMethod}()->getOwnerKeyName(),
-            '{{ForeignKeyName}}' => $this->relationClass->{$this->relationMethod}()->getForeignKeyName()
+            '{{ForeignKeyName}}' => $this->relationClass->{$this->relationMethod}()->getForeignKeyName(),
         ];
 
         $this->stub = 'entity-relations-belongs-to-methods';
@@ -96,9 +100,9 @@ class RelationsTestCasesFactory
     {
         $this->placeholder = [
             '{{RELATED_MODEL}}' => $this->relationMethod,
-            '{{PIVOT_TABLE}}' =>  $this->relationClass->{$this->relationMethod}()->getTable(),
+            '{{PIVOT_TABLE}}' => $this->relationClass->{$this->relationMethod}()->getTable(),
             '{{ForeignPivotKeyName}}' => $this->relationClass->{$this->relationMethod}()->getForeignPivotKeyName(),
-            '{{RelatedPivotKeyName}}' => $this->relationClass->{$this->relationMethod}()->getRelatedPivotKeyName()
+            '{{RelatedPivotKeyName}}' => $this->relationClass->{$this->relationMethod}()->getRelatedPivotKeyName(),
         ];
 
         $this->stub = 'entity-relations-belongs-to-many-methods';
@@ -106,6 +110,6 @@ class RelationsTestCasesFactory
 
     public function createDefault()
     {
-        return "";
+        return '';
     }
 }
