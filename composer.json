@@ -41,13 +41,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Eslam\\SkelotonPackage\\": "src/",
-            "Eslam\\SkelotonPackage\\Database\\Factories\\": "database/factories/"
+            "EslamDD\\SkelotonPackage\\": "src/",
+            "EslamDDD\\SkelotonPackage\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Eslam\\SkelotonPackage\\Tests\\": "tests/",
+            "EslamDDD\\SkelotonPackage\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
         }
     },
