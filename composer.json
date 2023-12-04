@@ -79,10 +79,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Eslam\\SkelotonPackage\\SkelotonPackageServiceProvider"
+                "EslamDDD\\SkelotonPackage\\SkelotonPackageServiceProvider"
             ],
             "aliases": {
-                "SkelotonPackage": "Eslam\\SkelotonPackage\\Facades\\SkelotonPackage"
+                "SkelotonPackage": "EslamDDD\\SkelotonPackage\\Facades\\SkelotonPackage"
             }
         }
     },
