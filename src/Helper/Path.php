@@ -1,6 +1,6 @@
 <?php
 
-namespace Eslam\SkelotonPackage\Helper;
+namespace EslamDDD\SkelotonPackage\Helper;
 
 use islam\DDD\Helper\Make\Types\Seeder;
 use Illuminate\Support\Arr;

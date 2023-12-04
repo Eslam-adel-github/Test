@@ -1,6 +1,6 @@
 <?php
 
-namespace Eslam\SkelotonPackage\Helper\Layouts;
+namespace EslamDDD\SkelotonPackage\Helper\Layouts;
 
 class LayoutFactory{
 

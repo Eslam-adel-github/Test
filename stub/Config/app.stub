@@ -165,7 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
-        Eslam\SkelotonPackage\DomainDriverDesignServiceProvider::class,
+        EslamDDD\SkelotonPackage\DomainDriverDesignServiceProvider::class,
         /*
          * Application Service Providers...
          */

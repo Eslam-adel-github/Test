@@ -2,8 +2,8 @@
 
 namespace Src\Infrastructure\AbstractProviders;
 
-use Eslam\SkelotonPackage\Helper\NamespaceCreator;
-use Eslam\SkelotonPackage\Helper\Path;
+use EslamDDD\SkelotonPackage\Helper\NamespaceCreator;
+use EslamDDD\SkelotonPackage\Helper\Path;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Gate;

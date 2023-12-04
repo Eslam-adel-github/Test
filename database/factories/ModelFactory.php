@@ -1,6 +1,6 @@
 <?php
 
-namespace Eslam\SkelotonPackage\Database\Factories;
+namespace EslamDDD\SkelotonPackage\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 

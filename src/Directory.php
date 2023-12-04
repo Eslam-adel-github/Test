@@ -1,14 +1,14 @@
 <?php
 
-namespace Eslam\SkelotonPackage;
+namespace EslamDDD\SkelotonPackage;
 
-use Eslam\SkelotonPackage\Helper\ArrayFormatter;
-use Eslam\SkelotonPackage\Helper\Make\Types\Domain;
-use Eslam\SkelotonPackage\Helper\Make\Types\FirstDomain;
-use Eslam\SkelotonPackage\Helper\Path;
+use EslamDDD\SkelotonPackage\Helper\ArrayFormatter;
+use EslamDDD\SkelotonPackage\Helper\Make\Types\Domain;
+use EslamDDD\SkelotonPackage\Helper\Make\Types\FirstDomain;
+use EslamDDD\SkelotonPackage\Helper\Path;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
-use Eslam\SkelotonPackage\Helper\Stub;
+use EslamDDD\SkelotonPackage\Helper\Stub;
 use Illuminate\Support\Facades\Artisan;
 
 

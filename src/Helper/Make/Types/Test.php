@@ -1,9 +1,9 @@
 <?php
 
-namespace Eslam\SkelotonPackage\Helper\Make\Types;
+namespace EslamDDD\SkelotonPackage\Helper\Make\Types;
 
-use Eslam\SkelotonPackage\Helper\Make\Maker;
-use Eslam\SkelotonPackage\Helper\Make\Service\Test\TestCaseFactory;
+use EslamDDD\SkelotonPackage\Helper\Make\Maker;
+use EslamDDD\SkelotonPackage\Helper\Make\Service\Test\TestCaseFactory;
 
 class Test extends Maker
 {

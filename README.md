@@ -52,7 +52,7 @@ php artisan vendor:publish --tag="skeloton-package-views"
 ## Usage
 
 ```php
-$skelotonPackage = new Eslam\SkelotonPackage();
+$skelotonPackage = new EslamDDD\SkelotonPackage();
 echo $skelotonPackage->echoPhrase('Hello, Eslam!');
 ```
 

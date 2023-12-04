@@ -1,10 +1,10 @@
 <?php
 
-namespace Eslam\SkelotonPackage\Helper\Make\Types;
+namespace EslamDDD\SkelotonPackage\Helper\Make\Types;
 
-use Eslam\SkelotonPackage\Helper\Make\Maker;
-use Eslam\SkelotonPackage\Helper\Naming;
-use Eslam\SkelotonPackage\Helper\Path;
+use EslamDDD\SkelotonPackage\Helper\Make\Maker;
+use EslamDDD\SkelotonPackage\Helper\Naming;
+use EslamDDD\SkelotonPackage\Helper\Path;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 

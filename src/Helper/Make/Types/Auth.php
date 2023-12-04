@@ -1,8 +1,8 @@
 <?php
 
-namespace Eslam\SkelotonPackage\Helper\Make\Types;
+namespace EslamDDD\SkelotonPackage\Helper\Make\Types;
 
-use Eslam\SkelotonPackage\Helper\Make\Maker;
+use EslamDDD\SkelotonPackage\Helper\Make\Maker;
 
 class Auth extends Maker
 {

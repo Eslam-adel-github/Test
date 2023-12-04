@@ -1,18 +1,18 @@
 <?php
 
-namespace Eslam\SkelotonPackage\Helper\Make\Types;
+namespace EslamDDD\SkelotonPackage\Helper\Make\Types;
 
 use Reflection;
 use ReflectionClass;
 use Illuminate\Support\Str;
-use Eslam\SkelotonPackage\Helper\Path;
-use Eslam\SkelotonPackage\Helper\Naming;
-use Eslam\SkelotonPackage\Helper\Make\Maker;
-use Eslam\SkelotonPackage\Helper\FileCreator;
+use EslamDDD\SkelotonPackage\Helper\Path;
+use EslamDDD\SkelotonPackage\Helper\Naming;
+use EslamDDD\SkelotonPackage\Helper\Make\Maker;
+use EslamDDD\SkelotonPackage\Helper\FileCreator;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Artisan;
-use Eslam\SkelotonPackage\Helper\Make\Types\Allow;
-use Eslam\SkelotonPackage\Helper\NamespaceCreator;
+use EslamDDD\SkelotonPackage\Helper\Make\Types\Allow;
+use EslamDDD\SkelotonPackage\Helper\NamespaceCreator;
 
 class Relations extends Maker
 {

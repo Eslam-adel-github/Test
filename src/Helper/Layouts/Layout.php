@@ -1,8 +1,8 @@
 <?php
 
-namespace Eslam\SkelotonPackage\Helper\Layouts;
+namespace EslamDDD\SkelotonPackage\Helper\Layouts;
 
-use Eslam\SkelotonPackage\Helper\Path;
+use EslamDDD\SkelotonPackage\Helper\Path;
 
 abstract class Layout{
 

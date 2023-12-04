@@ -1,9 +1,9 @@
 <?php
 
-namespace Eslam\SkelotonPackage\Helper\Make\Service\Test;
+namespace EslamDDD\SkelotonPackage\Helper\Make\Service\Test;
 
 use Illuminate\Support\Str;
-use Eslam\SkelotonPackage\Helper\Make\Maker;
+use EslamDDD\SkelotonPackage\Helper\Make\Maker;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;

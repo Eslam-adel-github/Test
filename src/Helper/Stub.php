@@ -1,15 +1,15 @@
 <?php
 
-namespace Eslam\SkelotonPackage\Helper;
+namespace EslamDDD\SkelotonPackage\Helper;
 
-use Eslam\SkelotonPackage\Helper\Make\Types\Controller;
-use Eslam\SkelotonPackage\Helper\Make\Types\DatabaseView;
-use Eslam\SkelotonPackage\Helper\Make\Types\Datatable;
-use Eslam\SkelotonPackage\Helper\Make\Types\Domain;
-use Eslam\SkelotonPackage\Helper\Make\Types\Entity;
-use Eslam\SkelotonPackage\Helper\Make\Types\Factory;
-use Eslam\SkelotonPackage\Helper\Make\Types\Migration;
-use Eslam\SkelotonPackage\Helper\Make\Types\Seeder;
+use EslamDDD\SkelotonPackage\Helper\Make\Types\Controller;
+use EslamDDD\SkelotonPackage\Helper\Make\Types\DatabaseView;
+use EslamDDD\SkelotonPackage\Helper\Make\Types\Datatable;
+use EslamDDD\SkelotonPackage\Helper\Make\Types\Domain;
+use EslamDDD\SkelotonPackage\Helper\Make\Types\Entity;
+use EslamDDD\SkelotonPackage\Helper\Make\Types\Factory;
+use EslamDDD\SkelotonPackage\Helper\Make\Types\Migration;
+use EslamDDD\SkelotonPackage\Helper\Make\Types\Seeder;
 use theaddresstech\Support\Arr;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;

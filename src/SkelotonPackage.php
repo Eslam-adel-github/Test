@@ -1,6 +1,6 @@
 <?php
 
-namespace Eslam\SkelotonPackage;
+namespace EslamDDD\SkelotonPackage;
 
 class SkelotonPackage
 {

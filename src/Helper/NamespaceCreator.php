@@ -1,6 +1,6 @@
 <?php
 
-namespace Eslam\SkelotonPackage\Helper;
+namespace EslamDDD\SkelotonPackage\Helper;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;

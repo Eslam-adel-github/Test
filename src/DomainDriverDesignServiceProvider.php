@@ -1,10 +1,10 @@
 <?php
 
-namespace Eslam\SkelotonPackage;
+namespace EslamDDD\SkelotonPackage;
 
-use Eslam\SkelotonPackage\Make;
-use Eslam\SkelotonPackage\Build;
-use Eslam\SkelotonPackage\Directory;
+use EslamDDD\SkelotonPackage\Make;
+use EslamDDD\SkelotonPackage\Build;
+use EslamDDD\SkelotonPackage\Directory;
 use Illuminate\Support\ServiceProvider;
 
 class DomainDriverDesignServiceProvider extends ServiceProvider{

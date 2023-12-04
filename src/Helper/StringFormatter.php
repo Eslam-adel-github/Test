@@ -1,6 +1,6 @@
 <?php
 
-namespace Eslam\SkelotonPackage\Helper;
+namespace EslamDDD\SkelotonPackage\Helper;
 
 class StringFormatter
 {

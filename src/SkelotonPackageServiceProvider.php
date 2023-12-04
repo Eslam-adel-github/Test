@@ -1,10 +1,10 @@
 <?php
 
-namespace Eslam\SkelotonPackage;
+namespace EslamDDD\SkelotonPackage;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Eslam\SkelotonPackage\Commands\SkelotonPackageCommand;
+use EslamDDD\SkelotonPackage\Commands\SkelotonPackageCommand;
 
 class SkelotonPackageServiceProvider extends PackageServiceProvider
 {

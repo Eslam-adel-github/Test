@@ -1,11 +1,11 @@
 <?php
 
-namespace Eslam\SkelotonPackage\Helper\Make\Service\Test;
+namespace EslamDDD\SkelotonPackage\Helper\Make\Service\Test;
 
 use Illuminate\Support\Str;
-use Eslam\SkelotonPackage\Helper\Path;
-use Eslam\SkelotonPackage\Helper\ArrayFormatter;
-use Eslam\SkelotonPackage\Helper\NamespaceCreator;
+use EslamDDD\SkelotonPackage\Helper\Path;
+use EslamDDD\SkelotonPackage\Helper\ArrayFormatter;
+use EslamDDD\SkelotonPackage\Helper\NamespaceCreator;
 use ReflectionClass;
 
 class TestCaseFactory

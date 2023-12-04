@@ -1,17 +1,17 @@
 <?php
 
-namespace Eslam\SkelotonPackage\Helper\Make\Service\Test;
+namespace EslamDDD\SkelotonPackage\Helper\Make\Service\Test;
 
 use ReflectionClass;
 use Illuminate\Support\Str;
-use Eslam\SkelotonPackage\Helper\Path;
-use Eslam\SkelotonPackage\Helper\Naming;
-use Eslam\SkelotonPackage\Helper\Make\Maker;
-use Eslam\SkelotonPackage\Helper\NamespaceCreator;
-use Eslam\SkelotonPackage\Helper\Make\Service\Test\Test;
+use EslamDDD\SkelotonPackage\Helper\Path;
+use EslamDDD\SkelotonPackage\Helper\Naming;
+use EslamDDD\SkelotonPackage\Helper\Make\Maker;
+use EslamDDD\SkelotonPackage\Helper\NamespaceCreator;
+use EslamDDD\SkelotonPackage\Helper\Make\Service\Test\Test;
 use Illuminate\Validation\ValidationRuleParser;
 use Illuminate\Foundation\Http\FormRequest as Request;
-use Eslam\SkelotonPackage\Helper\Make\Service\Test\FormRequestsTestCasesFactory;
+use EslamDDD\SkelotonPackage\Helper\Make\Service\Test\FormRequestsTestCasesFactory;
 
 class FormRequest extends Test
 {

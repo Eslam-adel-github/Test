@@ -1,17 +1,17 @@
 <?php
 
-namespace Eslam\SkelotonPackage;
+namespace EslamDDD\SkelotonPackage;
 
 use ReflectionClass;
-use Eslam\SkelotonPackage\Helper\Path;
-use Eslam\SkelotonPackage\Helper\Stub;
+use EslamDDD\SkelotonPackage\Helper\Path;
+use EslamDDD\SkelotonPackage\Helper\Stub;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\File;
-use Eslam\SkelotonPackage\Helper\ArrayFormatter;
+use EslamDDD\SkelotonPackage\Helper\ArrayFormatter;
 use Illuminate\Support\Facades\Artisan;
-use Eslam\SkelotonPackage\Helper\Make\Types\Domain;
-use Eslam\SkelotonPackage\Helper\Make\Types\FirstDomain;
+use EslamDDD\SkelotonPackage\Helper\Make\Types\Domain;
+use EslamDDD\SkelotonPackage\Helper\Make\Types\FirstDomain;
 
 
 /**

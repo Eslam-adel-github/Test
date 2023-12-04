@@ -1,10 +1,10 @@
 <?php
 
-namespace Eslam\SkelotonPackage\Tests;
+namespace EslamDDD\SkelotonPackage\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Eslam\SkelotonPackage\SkelotonPackageServiceProvider;
+use EslamDDD\SkelotonPackage\SkelotonPackageServiceProvider;
 
 class TestCase extends Orchestra
 {

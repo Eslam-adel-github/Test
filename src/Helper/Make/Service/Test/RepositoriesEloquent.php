@@ -1,12 +1,12 @@
 <?php
 
-namespace Eslam\SkelotonPackage\Helper\Make\Service\Test;
+namespace EslamDDD\SkelotonPackage\Helper\Make\Service\Test;
 
 use Illuminate\Support\Str;
-use Eslam\SkelotonPackage\Helper\Path;
-use Eslam\SkelotonPackage\Helper\Make\Maker;
+use EslamDDD\SkelotonPackage\Helper\Path;
+use EslamDDD\SkelotonPackage\Helper\Make\Maker;
 use Illuminate\Support\Facades\File;
-use Eslam\SkelotonPackage\Helper\Make\Service\Test\Test;
+use EslamDDD\SkelotonPackage\Helper\Make\Service\Test\Test;
 
 class RepositoriesEloquent extends Test
 {

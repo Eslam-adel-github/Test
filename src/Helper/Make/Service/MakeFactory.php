@@ -1,21 +1,21 @@
 <?php
 
-namespace Eslam\SkelotonPackage\Helper\Make\Service;
+namespace EslamDDD\SkelotonPackage\Helper\Make\Service;
 
-use Eslam\SkelotonPackage\Helper\ArrayFormatter;
+use EslamDDD\SkelotonPackage\Helper\ArrayFormatter;
 use Illuminate\Support\Str;
-use Eslam\SkelotonPackage\Helper\Make\Maker;
-use Eslam\SkelotonPackage\Helper\Make\Service\NullMaker;
-use Eslam\SkelotonPackage\Helper\Make\Types\Controller;
-use Eslam\SkelotonPackage\Helper\Make\Types\DatabaseView;
-use Eslam\SkelotonPackage\Helper\Make\Types\Datatable;
-use Eslam\SkelotonPackage\Helper\Make\Types\Domain;
-use Eslam\SkelotonPackage\Helper\Make\Types\Entity;
-use Eslam\SkelotonPackage\Helper\Make\Types\Factory;
-use Eslam\SkelotonPackage\Helper\Make\Types\Migration;
-use Eslam\SkelotonPackage\Helper\Make\Types\Seeder;
-use Eslam\SkelotonPackage\Helper\NamespaceCreator;
-use Eslam\SkelotonPackage\Helper\Path;
+use EslamDDD\SkelotonPackage\Helper\Make\Maker;
+use EslamDDD\SkelotonPackage\Helper\Make\Service\NullMaker;
+use EslamDDD\SkelotonPackage\Helper\Make\Types\Controller;
+use EslamDDD\SkelotonPackage\Helper\Make\Types\DatabaseView;
+use EslamDDD\SkelotonPackage\Helper\Make\Types\Datatable;
+use EslamDDD\SkelotonPackage\Helper\Make\Types\Domain;
+use EslamDDD\SkelotonPackage\Helper\Make\Types\Entity;
+use EslamDDD\SkelotonPackage\Helper\Make\Types\Factory;
+use EslamDDD\SkelotonPackage\Helper\Make\Types\Migration;
+use EslamDDD\SkelotonPackage\Helper\Make\Types\Seeder;
+use EslamDDD\SkelotonPackage\Helper\NamespaceCreator;
+use EslamDDD\SkelotonPackage\Helper\Path;
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;

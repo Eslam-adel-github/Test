@@ -1,5 +1,5 @@
 <?php
-namespace Eslam\SkelotonPackage\Traits;
+namespace EslamDDD\SkelotonPackage\Traits;
 
 use Illuminate\View\View;
 

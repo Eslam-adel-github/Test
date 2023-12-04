@@ -1,8 +1,8 @@
 <?php
 
-namespace Eslam\SkelotonPackage\Helper\Make\Service;
+namespace EslamDDD\SkelotonPackage\Helper\Make\Service;
 
-use Eslam\SkelotonPackage\Helper\Make\Maker;
+use EslamDDD\SkelotonPackage\Helper\Make\Maker;
 
 /**
  * Abstract class to manage the creation of Common components such as : Domain,Controller ect.

@@ -1,11 +1,11 @@
 <?php
 
-namespace Eslam\SkelotonPackage\Helper\Make;
+namespace EslamDDD\SkelotonPackage\Helper\Make;
 
-use Eslam\SkelotonPackage\Helper\ArrayFormatter;
-use Eslam\SkelotonPackage\Helper\FileCreator;
-use Eslam\SkelotonPackage\Helper\Path;
-use Eslam\SkelotonPackage\Helper\Stub;
+use EslamDDD\SkelotonPackage\Helper\ArrayFormatter;
+use EslamDDD\SkelotonPackage\Helper\FileCreator;
+use EslamDDD\SkelotonPackage\Helper\Path;
+use EslamDDD\SkelotonPackage\Helper\Stub;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;

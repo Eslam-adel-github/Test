@@ -1,11 +1,11 @@
 <?php
 
-namespace Eslam\SkelotonPackage;
+namespace EslamDDD\SkelotonPackage;
 
-use Eslam\SkelotonPackage\Helper\FileCreator;
+use EslamDDD\SkelotonPackage\Helper\FileCreator;
 use Illuminate\Console\Command;
-use Eslam\SkelotonPackage\Helper\Make\Service\MakeFactory;
-use Eslam\SkelotonPackage\Helper\Make\Service\NullMaker;
+use EslamDDD\SkelotonPackage\Helper\Make\Service\MakeFactory;
+use EslamDDD\SkelotonPackage\Helper\Make\Service\NullMaker;
 use Illuminate\Support\Facades\Artisan;
 
 class Make extends Command

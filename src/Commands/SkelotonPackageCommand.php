@@ -1,6 +1,6 @@
 <?php
 
-namespace Eslam\SkelotonPackage\Commands;
+namespace EslamDDD\SkelotonPackage\Commands;
 
 use Illuminate\Console\Command;
 
