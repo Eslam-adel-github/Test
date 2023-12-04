@@ -2,9 +2,9 @@
 
 namespace Eslam\SkelotonPackage;
 
+use Eslam\SkelotonPackage\Commands\SkelotonPackageCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Eslam\SkelotonPackage\Commands\SkelotonPackageCommand;
 
 class SkelotonPackageServiceProvider extends PackageServiceProvider
 {

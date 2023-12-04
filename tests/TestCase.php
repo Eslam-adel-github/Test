@@ -2,9 +2,9 @@
 
 namespace Eslam\SkelotonPackage\Tests;
 
+use Eslam\SkelotonPackage\SkelotonPackageServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Eslam\SkelotonPackage\SkelotonPackageServiceProvider;
 
 class TestCase extends Orchestra
 {

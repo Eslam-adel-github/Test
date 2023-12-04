@@ -6,11 +6,10 @@ use Eslam\SkelotonPackage\Helper\ArrayFormatter;
 use Eslam\SkelotonPackage\Helper\Make\Types\Domain;
 use Eslam\SkelotonPackage\Helper\Make\Types\FirstDomain;
 use Eslam\SkelotonPackage\Helper\Path;
-use Illuminate\Console\Command;
-use Illuminate\Support\Facades\File;
 use Eslam\SkelotonPackage\Helper\Stub;
+use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
-
+use Illuminate\Support\Facades\File;
 
 /**
  * Generate Main DDD Direcotry-Sturcutre
@@ -19,7 +18,7 @@ class Directory extends Command
 {
     use Stub;
 
-    private $base = "src";
+    private $base = 'src';
 
     /**
      * Contains the base structure after converting nested array to Dot formate
@@ -27,6 +26,7 @@ class Directory extends Command
      * @var array
      */
     private $filesystem = [];
+
     /**
      * The name and signature of the console command.
      *
@@ -52,7 +52,7 @@ class Directory extends Command
     {
         parent::__construct();
 
-        $this->filesystem=ArrayFormatter::dot(config('ddd.structure.base'));
+        $this->filesystem = ArrayFormatter::dot(config('ddd.structure.base'));
         //dd($this->filesystem);
     }
 
@@ -64,12 +64,11 @@ class Directory extends Command
     public function handle()
     {
 
-        Artisan::call('livewire:publish',[
-            '--assets'=>true
+        Artisan::call('livewire:publish', [
+            '--assets' => true,
         ]);
 
         //$this->info("Livewire assets Published");
-
 
         $this->setupDirectory();
 
@@ -83,32 +82,33 @@ class Directory extends Command
      *
      * @return void
      */
-    private function setupDirectory(){
+    private function setupDirectory()
+    {
 
-        if(File::isDirectory(base_path($this->base))){
+        if (File::isDirectory(base_path($this->base))) {
             File::deleteDirectory($this->base);
         }
 
-        foreach($this->filesystem as $folder => $files){
+        foreach ($this->filesystem as $folder => $files) {
 
-            $folder = str_replace('.',DIRECTORY_SEPARATOR,$folder);
+            $folder = str_replace('.', DIRECTORY_SEPARATOR, $folder);
 
-            File::makeDirectory(base_path().DIRECTORY_SEPARATOR.$this->base.DIRECTORY_SEPARATOR.$folder,0777, true, true);
+            File::makeDirectory(base_path().DIRECTORY_SEPARATOR.$this->base.DIRECTORY_SEPARATOR.$folder, 0777, true, true);
 
-            foreach($files as $file){
+            foreach ($files as $file) {
                 //$this->info("started adding file name ".$file."to Folder ".$folder);
                 $destination = base_path().DIRECTORY_SEPARATOR.$this->base.DIRECTORY_SEPARATOR.$folder.DIRECTORY_SEPARATOR.$file;
 
-                $stub = File::get(__DIR__.'/../stub/'.$folder.'/'.basename($file,'.php').'.stub');
+                $stub = File::get(__DIR__.'/../stub/'.$folder.'/'.basename($file, '.php').'.stub');
 
-                File::put($destination,$stub);
+                File::put($destination, $stub);
                 //$this->info("finished adding file name ".$file."to Folder ".$folder);
             }
         }
 
         //$this->info("started adding routesss ");
 
-        File::put(base_path('routes').DIRECTORY_SEPARATOR.'web.php',$this->getStub('route-web'));
+        File::put(base_path('routes').DIRECTORY_SEPARATOR.'web.php', $this->getStub('route-web'));
 
         //$this->info("finished adding routesss ");
     }
@@ -118,17 +118,18 @@ class Directory extends Command
      *
      * @return void
      */
-    private function bootstrap(){
+    private function bootstrap()
+    {
         // Set Config App
-        File::put(config_path('app.php'),$this->getStub('config-app'));
+        File::put(config_path('app.php'), $this->getStub('config-app'));
         //File::put(lang_path('en'.DIRECTORY_SEPARATOR.'main.php'),$this->getStub('main-translation'));
-        File::put(config_path('auth.php'),$this->getStub('config-auth'));
-        File::put(config_path('cors.php'),$this->getStub('config-cors'));
+        File::put(config_path('auth.php'), $this->getStub('config-auth'));
+        File::put(config_path('cors.php'), $this->getStub('config-cors'));
         // File::put(config_path('lighthouse.php'),$this->getStub('config-lighthouse'));
-        File::put(base_path('phpunit.xml'),$this->getStub('phpunit'));
+        File::put(base_path('phpunit.xml'), $this->getStub('phpunit'));
 
         // Set Bootstrap
-        File::put(base_path('bootstrap').DIRECTORY_SEPARATOR.'app.php',File::get(__DIR__.'/../stub/Bootstrap/app.stub'));
+        File::put(base_path('bootstrap').DIRECTORY_SEPARATOR.'app.php', File::get(__DIR__.'/../stub/Bootstrap/app.stub'));
 
         // Set GraphQL
 
@@ -141,46 +142,46 @@ class Directory extends Command
      *
      * @return void
      */
-    private function firstDomain(){
+    private function firstDomain()
+    {
 
         File::delete(base_path('navbar.json'));
 
         FirstDomain::createService([]);
 
-
-        $navbar = rtrim(Path::toCommon('Components','Navbar'),DIRECTORY_SEPARATOR);
-        if(!File::isDirectory($navbar)){
-            File::makeDirectory($navbar,0755,true);
+        $navbar = rtrim(Path::toCommon('Components', 'Navbar'), DIRECTORY_SEPARATOR);
+        if (! File::isDirectory($navbar)) {
+            File::makeDirectory($navbar, 0755, true);
         }
-        File::copyDirectory(Path::build(Path::package(),'views',config('ddd.layout')[0],'navbar'),$navbar);
+        File::copyDirectory(Path::build(Path::package(), 'views', config('ddd.layout')[0], 'navbar'), $navbar);
 
-        $header = rtrim(Path::toCommon('Components','Header'),DIRECTORY_SEPARATOR);
-        if(!File::isDirectory($header)){
-            File::makeDirectory($header,0755,true);
+        $header = rtrim(Path::toCommon('Components', 'Header'), DIRECTORY_SEPARATOR);
+        if (! File::isDirectory($header)) {
+            File::makeDirectory($header, 0755, true);
         }
-        File::copyDirectory(Path::build(Path::package(),'views',config('ddd.layout')[0],'header'),$header);
+        File::copyDirectory(Path::build(Path::package(), 'views', config('ddd.layout')[0], 'header'), $header);
 
-        $footer = rtrim(Path::toCommon('Components','Footer'),DIRECTORY_SEPARATOR);
-        if(!File::isDirectory($footer)){
-            File::makeDirectory($footer,0755,true);
+        $footer = rtrim(Path::toCommon('Components', 'Footer'), DIRECTORY_SEPARATOR);
+        if (! File::isDirectory($footer)) {
+            File::makeDirectory($footer, 0755, true);
         }
-        File::copyDirectory(Path::build(Path::package(),'views',config('ddd.layout')[0],'footer'),$footer);
+        File::copyDirectory(Path::build(Path::package(), 'views', config('ddd.layout')[0], 'footer'), $footer);
 
     }
 
-
-    public function setupJS(){
-        File::put(resource_path('js/app.js'),$this->getStub('app-js'));
+    public function setupJS()
+    {
+        File::put(resource_path('js/app.js'), $this->getStub('app-js'));
 
         $commans = [
             'npm i',
             'npm i vue',
             'npm install vuex --save',
             'npm install es6-promise',
-            'npm install tailwindcss'
+            'npm install tailwindcss',
         ];
 
-        shell_exec(join(' & ',$commans));
+        shell_exec(implode(' & ', $commans));
 
     }
 }

@@ -10,19 +10,19 @@ class Test extends Maker
     /**
      * Options to be available once Command-Type is called
      *
-     * @return Array
+     * @return array
      */
     public $options = [
-        'domain'
+        'domain',
     ];
 
     /**
      * Return options that should be treated as choices
      *
-     * @return Array
+     * @return array
      */
     public $allowChoices = [
-        'domain'
+        'domain',
     ];
 
     public function service(array $values): bool
@@ -32,10 +32,10 @@ class Test extends Maker
         TestCaseFactory::generateEntitiesRelations($this, $values['domain']);
         TestCaseFactory::generateRepositoriesEloquent($this, $values['domain']);
         TestCaseFactory::generateResources($this, $values['domain']);
+
         // TestCaseFactory::generateFormRequest($this, $values['domain']);
         return 1;
     }
-
 
     /**
      * Create Test cases for endpoints

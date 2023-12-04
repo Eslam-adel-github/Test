@@ -2,18 +2,10 @@
 
 namespace Eslam\SkelotonPackage\Helper\Make\Types;
 
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Traits\Macroable;
-use Eslam\SkelotonPackage\Helper\FileCreator;
 use Eslam\SkelotonPackage\Helper\Make\Maker;
 use Eslam\SkelotonPackage\Helper\NamespaceCreator;
-use Eslam\SkelotonPackage\Helper\Naming;
-use Eslam\SkelotonPackage\Helper\Path;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-
-use MohamedReda\DDD\Helper\Make\Types\Rule;
 
 class DisableDomain extends Maker
 {
@@ -23,10 +15,11 @@ class DisableDomain extends Maker
      * @var string
      */
     private $name;
+
     /**
      * Options to be available once Command-Type is called
      *
-     * @return Array
+     * @return array
      */
     public $options = [
         'domain',
@@ -35,7 +28,7 @@ class DisableDomain extends Maker
     /**
      * Return options that should be treated as choices
      *
-     * @return Array
+     * @return array
      */
     public $allowChoices = [
         'domain',
@@ -44,14 +37,14 @@ class DisableDomain extends Maker
     /**
      * Check if the current options is True/False question
      *
-     * @return Array
+     * @return array
      */
     public $booleanOptions = [];
 
     /**
      * Check if the current options is requesd based on other option
      *
-     * @return Array
+     * @return array
      */
     public $requiredUnless = [];
 
@@ -60,24 +53,28 @@ class DisableDomain extends Maker
      *
      * @return Boll
      */
-    public function service(Array $values):Bool{
-        $this->name=$values['domain'];
+    public function service(array $values): bool
+    {
+        $this->name = $values['domain'];
 
         return $this->modifyConfig();
 
     }
-    public function modifyConfig(){
+
+    public function modifyConfig()
+    {
 
         // Remove Service Provider from config/app
-        $service_provider = NamespaceCreator::Segments("Src","Domain",$this->name,"Providers","DomainServiceProvider");
+        $service_provider = NamespaceCreator::Segments('Src', 'Domain', $this->name, 'Providers', 'DomainServiceProvider');
         $app = File::get(config_path('app.php'));
         //
-       if(Str::of($app)->contains([$service_provider],[false]) ==true) {
-           $content = Str::of($app)->replace($service_provider."::class,","");
-           $this->save(config_path(), 'app', 'php', $content);
-           return true;
-       }
-        error_log("This Domain Is Already Disabled");
+        if (Str::of($app)->contains([$service_provider], [false]) == true) {
+            $content = Str::of($app)->replace($service_provider.'::class,', '');
+            $this->save(config_path(), 'app', 'php', $content);
+
+            return true;
+        }
+        error_log('This Domain Is Already Disabled');
 
         return false;
     }

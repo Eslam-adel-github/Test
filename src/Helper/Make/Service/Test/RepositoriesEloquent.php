@@ -2,15 +2,15 @@
 
 namespace Eslam\SkelotonPackage\Helper\Make\Service\Test;
 
-use Illuminate\Support\Str;
-use Eslam\SkelotonPackage\Helper\Path;
 use Eslam\SkelotonPackage\Helper\Make\Maker;
+use Eslam\SkelotonPackage\Helper\Path;
 use Illuminate\Support\Facades\File;
-use Eslam\SkelotonPackage\Helper\Make\Service\Test\Test;
+use Illuminate\Support\Str;
 
 class RepositoriesEloquent extends Test
 {
     private $domain;
+
     private $TestCommand;
 
     public function __construct(Maker $TestCommand, string $domain)
@@ -37,15 +37,14 @@ class RepositoriesEloquent extends Test
 
             $dir = Path::toDomain($this->domain, 'Tests', 'Unit', 'Repositories', 'Eloquent');
 
-            if (!File::isDirectory($dir)) {
+            if (! File::isDirectory($dir)) {
                 File::makedirectory($dir, 0755, true, true);
             }
-
 
             $content = Str::of($this->TestCommand->getStub('repository-eloquent-test'))
                 ->replace(array_keys($placeholders), array_values($placeholders));
 
-            $classFullName = $repository . 'Test';
+            $classFullName = $repository.'Test';
 
             $this->TestCommand->save($dir, $classFullName, 'php', $content);
         }

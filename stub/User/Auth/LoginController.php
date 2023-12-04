@@ -2,8 +2,8 @@
 
 namespace Src\Domain\User\Http\Controllers\Auth;
 
-use Src\Infrastructure\Http\AbstractControllers\BaseController as Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Src\Infrastructure\Http\AbstractControllers\BaseController as Controller;
 
 class LoginController extends Controller
 {
@@ -66,7 +66,7 @@ class LoginController extends Controller
     public function showLoginForm()
     {
         return view("{$this->domainAlias}::{$this->viewPath}.auth.login", [
-            'title' => __('main.login')
+            'title' => __('main.login'),
         ]);
     }
 

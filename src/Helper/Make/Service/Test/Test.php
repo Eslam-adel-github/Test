@@ -2,19 +2,15 @@
 
 namespace Eslam\SkelotonPackage\Helper\Make\Service\Test;
 
+use Eslam\SkelotonPackage\Helper\NamespaceCreator;
 use ReflectionClass;
 use ReflectionMethod;
-use Illuminate\Support\Str;
-use Eslam\SkelotonPackage\Helper\ArrayFormatter;
-use Eslam\SkelotonPackage\Helper\NamespaceCreator;
-use Eslam\SkelotonPackage\Helper\Path;
-use Eslam\SkelotonPackage\Helper\Stub;
 
 abstract class Test
 {
     protected $testCases = ['basic' => [], 'keep' => ''];
 
-    protected abstract function generate();
+    abstract protected function generate();
 
     public function setUp(string $content)
     {
@@ -54,13 +50,14 @@ abstract class Test
             );
         }
 
-        $this->testCases[$containerKey] = join("\n", $this->testCases[$containerKey]);
+        $this->testCases[$containerKey] = implode("\n", $this->testCases[$containerKey]);
     }
 
     public function instantiateJustCreated(array $dir, $class, ...$args)
     {
         array_push($dir, $class);
         $model = NamespaceCreator::segments(...$dir);
+
         return new $model(...$args);
     }
 }

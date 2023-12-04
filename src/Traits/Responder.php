@@ -1,85 +1,97 @@
 <?php
+
 namespace Eslam\SkelotonPackage\Traits;
 
 use Illuminate\View\View;
 
-trait Responder{
-
+trait Responder
+{
     protected $view = null;
+
     protected $resource = null;
+
     protected $api_response = null;
 
     // TODO : only one variable + filter
     protected $api_data = [];
+
     protected $web_data = [];
 
     protected $collection_base_key = '';
-    protected $redirect_back = false;
-    protected $redirect_route = false;
-    protected $appendResourceCallback = false;
 
+    protected $redirect_back = false;
+
+    protected $redirect_route = false;
+
+    protected $appendResourceCallback = false;
 
     /**
      * Define View
      *
-     * @param string $view
+     * @param  string  $view
      * @return void
      */
-    public function addView($view){
+    public function addView($view)
+    {
         $this->view = $view;
     }
 
-
-    public function redirectBack(){
+    public function redirectBack()
+    {
         $this->redirect_back = true;
     }
-    public function redirectRoute($route, $args = []){
+
+    public function redirectRoute($route, $args = [])
+    {
         $this->redirect_route = [
-            'route'=>$route,
-            'args'=>$args
+            'route' => $route,
+            'args' => $args,
         ];
     }
+
     /**
      * User Collection
      *
-     * @param Resource $resource
-     * @param String $key
+     * @param  resource  $resource
+     * @param  string  $key
      * @return void
      */
-    public function useCollection($resource,$key){
+    public function useCollection($resource, $key)
+    {
         $this->resource = $resource;
         $this->collection_base_key = $key;
     }
 
-
     /**
      * Set API Response
      *
-     * @param callable $resource
+     * @param  callable  $resource
      * @return void
      */
-    public function setApiResponse(callable $response){
+    public function setApiResponse(callable $response)
+    {
         $this->api_response = $response;
     }
 
     /**
      * Set Data
      *
-     * @param String $key
-     * @param boolean $value
+     * @param  string  $key
+     * @param  bool  $value
      * @return void
      */
-    public function setData($key,$value, $type='all'){
+    public function setData($key, $value, $type = 'all')
+    {
         switch ($type) {
             case 'web':
-                $this->web_data[$key]=$value;
+                $this->web_data[$key] = $value;
                 break;
             case 'api':
-                $this->api_data[$key]=$value;
+                $this->api_data[$key] = $value;
                 break;
             default:
-                $this->api_data[$key]=$value;
-                $this->web_data[$key]=$value;
+                $this->api_data[$key] = $value;
+                $this->web_data[$key] = $value;
                 break;
         }
     }
@@ -89,18 +101,19 @@ trait Responder{
      *
      * @return void
      */
-    public function response() {
+    public function response()
+    {
 
-        if(request()->expectsJson()){
-            if($this->api_response){
+        if (request()->expectsJson()) {
+            if ($this->api_response) {
                 $response = ($this->api_response)();
-            }else{
+            } else {
 
                 $data = $this->api_data[$this->collection_base_key];
 
-                if($this->appendResourceCallback){
-                    $response = (new $this->resource($data,$this->appendResourceCallback));
-                }else{
+                if ($this->appendResourceCallback) {
+                    $response = (new $this->resource($data, $this->appendResourceCallback));
+                } else {
                     $response = (new $this->resource($data));
                 }
 
@@ -109,14 +122,14 @@ trait Responder{
                 $response->additional($this->api_data);
             }
 
-        }else{
+        } else {
 
-            if($this->redirect_back){
+            if ($this->redirect_back) {
                 $response = back()->with($this->web_data);
-            }else if($this->redirect_route){
-                $response = redirect()->route($this->redirect_route['route'],$this->redirect_route['args'])->with($this->web_data);
-            }else{
-                $response =  view($this->view,$this->web_data);
+            } elseif ($this->redirect_route) {
+                $response = redirect()->route($this->redirect_route['route'], $this->redirect_route['args'])->with($this->web_data);
+            } else {
+                $response = view($this->view, $this->web_data);
             }
         }
 
@@ -124,7 +137,8 @@ trait Responder{
 
     }
 
-    public function appendResource($key, callable $callback){
+    public function appendResource($key, callable $callback)
+    {
         $this->appendResourceCallback = $callback;
     }
 }

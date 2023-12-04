@@ -2,8 +2,6 @@
 
 namespace Eslam\SkelotonPackage\Helper;
 
-use islam\DDD\Helper\Make\Types\Seeder;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
@@ -12,43 +10,38 @@ class Path
     /**
      * Retrive the path relative to Common directory
      *
-     * @param params ...$relatives
-     * @return string
+     * @param  params  ...$relatives
      */
-
     public static function toCommon(...$relatives): string
     {
-        return self::build(base_path("src".DIRECTORY_SEPARATOR.'Common'), ...$relatives);
+        return self::build(base_path('src'.DIRECTORY_SEPARATOR.'Common'), ...$relatives);
     }
 
     /**
      * Retrive the path relative to Infrastructure directory
      *
-     * @param params ...$relatives
-     * @return string
+     * @param  params  ...$relatives
      */
     public static function toInfrastructure(...$relatives): string
     {
-        return self::build(base_path("src".DIRECTORY_SEPARATOR.'Infrastructure'), ...$relatives);
+        return self::build(base_path('src'.DIRECTORY_SEPARATOR.'Infrastructure'), ...$relatives);
     }
 
     /**
      * Retrive the path relative to Interfaces directory
      *
-     * @param params ...$relatives
-     * @return string
+     * @param  params  ...$relatives
      */
     public static function toInterfaces(...$relatives): string
     {
-        return self::build(base_path("src".DIRECTORY_SEPARATOR.'Interfaces'), ...$relatives);
+        return self::build(base_path('src'.DIRECTORY_SEPARATOR.'Interfaces'), ...$relatives);
     }
 
     /**
      * Retrive the path relative to Domain directory
      *
-     * @param string $name domain name
-     * @param params ...$relatives
-     * @return string
+     * @param  string  $name domain name
+     * @param  params  ...$relatives
      */
     public static function toDomain($name = '', ...$relatives): string
     {
@@ -68,8 +61,7 @@ class Path
     /**
      * Return full path based on inputs
      *
-     * @param Array ...$names
-     * @return string
+     * @param  array  ...$names
      */
     public static function build(...$names): string
     {
@@ -77,8 +69,11 @@ class Path
         if (strpos($names[0], DIRECTORY_SEPARATOR) === 0) {
             $isLinux = true;
         }
-        $path = join(DIRECTORY_SEPARATOR, ArrayFormatter::trim($names, DIRECTORY_SEPARATOR));
-        if ($isLinux) $path = DIRECTORY_SEPARATOR . $path;
+        $path = implode(DIRECTORY_SEPARATOR, ArrayFormatter::trim($names, DIRECTORY_SEPARATOR));
+        if ($isLinux) {
+            $path = DIRECTORY_SEPARATOR.$path;
+        }
+
         return $path;
     }
 
@@ -87,8 +82,8 @@ class Path
 
         $path = Path::build(base_path(), ...$dir);
 
-        if (!File::isDirectory($path)) {
-            throw new \Exception($path . ' Not found');
+        if (! File::isDirectory($path)) {
+            throw new \Exception($path.' Not found');
         }
 
         $files = File::files($path);
@@ -104,8 +99,8 @@ class Path
     {
         $path = Path::build(base_path(), ...$dir);
 
-        if (!File::isDirectory($path)) {
-            throw new \Exception($path . ' Not found');
+        if (! File::isDirectory($path)) {
+            throw new \Exception($path.' Not found');
         }
 
         $directories = File::directories($path);
@@ -123,7 +118,7 @@ class Path
         $full = self::build(
             self::package(),
             'stub',
-            join(DIRECTORY_SEPARATOR, ArrayFormatter::trim($names, DIRECTORY_SEPARATOR))
+            implode(DIRECTORY_SEPARATOR, ArrayFormatter::trim($names, DIRECTORY_SEPARATOR))
         );
 
         return $full;
@@ -136,7 +131,7 @@ class Path
             self::package(),
             'src',
             'Helper',
-            join(DIRECTORY_SEPARATOR, ArrayFormatter::trim($names, DIRECTORY_SEPARATOR))
+            implode(DIRECTORY_SEPARATOR, ArrayFormatter::trim($names, DIRECTORY_SEPARATOR))
         );
 
         return $full;
@@ -145,7 +140,7 @@ class Path
     public static function getDomains(): array
     {
 
-        $domains = File::directories(base_path("src".DIRECTORY_SEPARATOR.'Domain'));
+        $domains = File::directories(base_path('src'.DIRECTORY_SEPARATOR.'Domain'));
 
         foreach ($domains as &$domain) {
             $domain = basename($domain);

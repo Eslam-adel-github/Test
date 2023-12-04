@@ -2,9 +2,7 @@
 
 namespace Eslam\SkelotonPackage\Helper\Make\Types;
 
-use Eslam\SkelotonPackage\Helper\FileCreator;
 use Eslam\SkelotonPackage\Helper\Make\Maker;
-use Eslam\SkelotonPackage\Helper\NamespaceCreator;
 use Eslam\SkelotonPackage\Helper\Naming;
 use Eslam\SkelotonPackage\Helper\Path;
 use Illuminate\Support\Facades\File;
@@ -15,7 +13,7 @@ class Listener extends Maker
     /**
      * Options to be available once Command-Type is called
      *
-     * @return Array
+     * @return array
      */
     public $options = [
         'name',
@@ -27,7 +25,7 @@ class Listener extends Maker
     /**
      * Return options that should be treated as choices
      *
-     * @return Array
+     * @return array
      */
     public $allowChoices = [
         'domain',
@@ -38,24 +36,22 @@ class Listener extends Maker
     /**
      * Check if the current options is True/False question
      *
-     * @return Array
+     * @return array
      */
     public $booleanOptions = [];
 
     /**
      * Check if the current options is requesd based on other option
      *
-     * @return Array
+     * @return array
      */
     public $requiredUnless = [];
 
     /**
      * Fill all placeholders in the stub file
-     *
-     * @param array $values
-     * @return boolean
      */
-    public function service(Array $values = []):bool{
+    public function service(array $values = []): bool
+    {
 
         $name = Naming::class($values['name']);
         $type = $values['command_http_general'];
@@ -63,23 +59,23 @@ class Listener extends Maker
             '{{DOMAIN}}' => $values['domain'],
             '{{NAME}}' => $name,
             '{{EVENT_NAME}}' => $values['event'],
-            '{{TYPE}}' => $type
+            '{{TYPE}}' => $type,
         ];
 
         $className = $name.'Listener';
 
-        $destination = Path::toDomain($values['domain'],'Listeners',$type);
+        $destination = Path::toDomain($values['domain'], 'Listeners', $type);
 
         $content = Str::of($this->getStub('listener'))
-                        ->replace(array_keys($placeholders),array_values($placeholders));
+            ->replace(array_keys($placeholders), array_values($placeholders));
 
-        $this->save($destination,$className,'php',$content);
+        $this->save($destination, $className, 'php', $content);
 
-        preg_match('#namespace (App\\\Domain\\\.*);#',$content,$matches);
+        preg_match('#namespace (App\\\Domain\\\.*);#', $content, $matches);
 
-        $class = $matches[1]."\\".$className;
+        $class = $matches[1].'\\'.$className;
 
-        $eventServiceProviderPath = Path::toDomain($values['domain'],'Providers','EventServiceProvider.php');
+        $eventServiceProviderPath = Path::toDomain($values['domain'], 'Providers', 'EventServiceProvider.php');
         $event_name = $values['event'];
 
         $eventServiceProviderContent = Str::of(File::get($eventServiceProviderPath))->replace(
@@ -87,9 +83,8 @@ class Listener extends Maker
             "\\$class::class,\n\t\t\t\t###LISTENERS_{$type}_$event_name###\n\t\t"
         );
 
-        File::put($eventServiceProviderPath,$eventServiceProviderContent);
+        File::put($eventServiceProviderPath, $eventServiceProviderContent);
 
         return true;
     }
-
 }

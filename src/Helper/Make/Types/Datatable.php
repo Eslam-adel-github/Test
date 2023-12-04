@@ -3,18 +3,18 @@
 namespace Eslam\SkelotonPackage\Helper\Make\Types;
 
 use Eslam\SkelotonPackage\Helper\Make\Maker;
+use Eslam\SkelotonPackage\Helper\NamespaceCreator;
 use Eslam\SkelotonPackage\Helper\Naming;
 use Eslam\SkelotonPackage\Helper\Path;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use Eslam\SkelotonPackage\Helper\NamespaceCreator;
 
 class Datatable extends Maker
 {
     /**
      * Options to be available once Command-Type is called
      *
-     * @return Array
+     * @return array
      */
     public $options = [
         'name',
@@ -25,7 +25,7 @@ class Datatable extends Maker
     /**
      * Return options that should be treated as choices
      *
-     * @return Array
+     * @return array
      */
     public $allowChoices = [
         'domain',
@@ -34,49 +34,48 @@ class Datatable extends Maker
 
     /**
      * Fill all placeholders in the stub file
-     *
-     * @param array $values
-     * @return boolean
      */
-    public function service(Array $values = []):bool{
+    public function service(array $values = []): bool
+    {
 
-        $name = Naming::Class($values['name']);
-        $domain = Naming::Class($values['domain']);
-        $entity = Naming::Class($values['entity']);
+        $name = Naming::class($values['name']);
+        $domain = Naming::class($values['domain']);
+        $entity = Naming::class($values['entity']);
 
-        $file = Naming::Class($values['name']).'Datatable';
+        $file = Naming::class($values['name']).'Datatable';
 
         $placeholders = [
-            '{{NAME}}'              =>  $name,
-            '{{DOMAIN}}'            =>  $domain,
-            '{{ENTITY}}'            =>  $entity,
+            '{{NAME}}' => $name,
+            '{{DOMAIN}}' => $domain,
+            '{{ENTITY}}' => $entity,
         ];
 
-        $destination = Path::toDomain($values['domain'],'Datatables');
+        $destination = Path::toDomain($values['domain'], 'Datatables');
 
-        $content = Str::of($this->getStub('datatable'))->replace(array_keys($placeholders),array_values($placeholders));
+        $content = Str::of($this->getStub('datatable'))->replace(array_keys($placeholders), array_values($placeholders));
 
-        $this->save($destination,$file,'php',$content);
+        $this->save($destination, $file, 'php', $content);
 
-        $component_key = strtolower(Str::of($values['name'])->replace(' ','-'));
-        $namespace = NamespaceCreator::Segments('App','Domain',$domain,'Datatables',$file);
+        $component_key = strtolower(Str::of($values['name'])->replace(' ', '-'));
+        $namespace = NamespaceCreator::Segments('App', 'Domain', $domain, 'Datatables', $file);
 
-        $this->buildComponent($component_key,$namespace,$domain);
+        $this->buildComponent($component_key, $namespace, $domain);
 
         return true;
     }
 
-    private function buildComponent($name,$namespace,$domain){
+    private function buildComponent($name, $namespace, $domain)
+    {
 
-        $DatatableServiceProviderPath = Path::toDomain($domain,'Providers','DatatableServiceProvider.php');
+        $DatatableServiceProviderPath = Path::toDomain($domain, 'Providers', 'DatatableServiceProvider.php');
 
         $DatatableServiceProviderContent = Str::of(File::get($DatatableServiceProviderPath))->replace(
-            "###DATATABLES_PLACEHOLDER###",
+            '###DATATABLES_PLACEHOLDER###',
             "'$name' => $namespace::class,\n\t\t\t###DATATABLES_PLACEHOLDER###"
         );
 
         $this->save(
-            Path::toDomain($domain,'Providers'),
+            Path::toDomain($domain, 'Providers'),
             'DatatableServiceProvider',
             'php',
             $DatatableServiceProviderContent

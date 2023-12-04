@@ -2,7 +2,6 @@
 
 namespace Eslam\SkelotonPackage\Helper\Make\Types;
 
-use Eslam\SkelotonPackage\Helper\FileCreator;
 use Eslam\SkelotonPackage\Helper\Make\Maker;
 use Eslam\SkelotonPackage\Helper\NamespaceCreator;
 use Eslam\SkelotonPackage\Helper\Naming;
@@ -15,45 +14,43 @@ class Policy extends Maker
     /**
      * Options to be available once Command-Type is called
      *
-     * @return Array
+     * @return array
      */
     public $options = [
         'name',
         'domain',
-        'entity'
+        'entity',
     ];
 
     /**
      * Return options that should be treated as choices
      *
-     * @return Array
+     * @return array
      */
     public $allowChoices = [
         'domain',
-        'entity'
+        'entity',
     ];
 
     /**
      * Check if the current options is True/False question
      *
-     * @return Array
+     * @return array
      */
     public $booleanOptions = [];
 
     /**
      * Check if the current options is requesd based on other option
      *
-     * @return Array
+     * @return array
      */
     public $requiredUnless = [];
 
     /**
      * Fill all placeholders in the stub file
-     *
-     * @param array $values
-     * @return boolean
      */
-    public function service(Array $values = []):bool{
+    public function service(array $values = []): bool
+    {
 
         $name = Naming::class($values['name']);
 
@@ -64,32 +61,31 @@ class Policy extends Maker
             '{{ENTITY_LC}}' => Str::lower($values['entity']),
         ];
 
-        $dir = Path::toDomain($values['domain'],'Policies');
+        $dir = Path::toDomain($values['domain'], 'Policies');
 
-        if(!File::isDirectory($dir)){
+        if (! File::isDirectory($dir)) {
             File::makeDirectory($dir);
         }
 
         $content = Str::of($this->getStub('policy'))
-                        ->replace(array_keys($placeholders),array_values($placeholders));
+            ->replace(array_keys($placeholders), array_values($placeholders));
 
-        $this->save($dir,$name,'php',$content);
+        $this->save($dir, $name, 'php', $content);
 
+        $ServiceProviderPath = Path::toDomain($values['domain'], 'Providers');
 
-        $ServiceProviderPath = Path::toDomain($values['domain'],'Providers');
+        $content = File::get(Path::build($ServiceProviderPath, 'PolicyServiceProvider.php'));
 
-        $content = File::get(Path::build($ServiceProviderPath,'PolicyServiceProvider.php'));
-
-        $entity_namespace = NamespaceCreator::Segments('Src','Domain',$values['domain'],'Entities',$values['entity']);
-        $policy_namespace = NamespaceCreator::Segments('Src','Domain',$values['domain'],'Policies',$name);
+        $entity_namespace = NamespaceCreator::Segments('Src', 'Domain', $values['domain'], 'Entities', $values['entity']);
+        $policy_namespace = NamespaceCreator::Segments('Src', 'Domain', $values['domain'], 'Policies', $name);
 
         $policyServiceProviderContent = Str::of($content)->replace(
-            "###POLICIES###",
+            '###POLICIES###',
             "$entity_namespace::class => $policy_namespace::class,\n\t\t###POLICIES###"
         );
 
-        $this->save($ServiceProviderPath,'PolicyServiceProvider','php',$policyServiceProviderContent);
+        $this->save($ServiceProviderPath, 'PolicyServiceProvider', 'php', $policyServiceProviderContent);
+
         return true;
     }
-
 }

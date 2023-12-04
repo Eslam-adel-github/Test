@@ -2,8 +2,8 @@
 
 namespace Src\Domain\User\Http\Controllers\Auth;
 
-use Src\Infrastructure\Http\AbstractControllers\BaseController as Controller;
 use Illuminate\Foundation\Auth\VerifiesEmails;
+use Src\Infrastructure\Http\AbstractControllers\BaseController as Controller;
 
 class VerificationController extends Controller
 {

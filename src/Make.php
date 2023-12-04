@@ -2,15 +2,12 @@
 
 namespace Eslam\SkelotonPackage;
 
-use Eslam\SkelotonPackage\Helper\FileCreator;
-use Illuminate\Console\Command;
 use Eslam\SkelotonPackage\Helper\Make\Service\MakeFactory;
 use Eslam\SkelotonPackage\Helper\Make\Service\NullMaker;
-use Illuminate\Support\Facades\Artisan;
+use Illuminate\Console\Command;
 
 class Make extends Command
 {
-
     /**
      * Holder Makers
      *
@@ -54,23 +51,23 @@ class Make extends Command
         /**
          * Pass instance of the command so we can create instance of Maker based on type
          */
-
         $maker = MakeFactory::create($this);
 
         /**
          * Check if Maker supported
          */
-        if($maker instanceof NullMaker){
-            $this->error($this->argument('type')." type is not supported");
+        if ($maker instanceof NullMaker) {
+            $this->error($this->argument('type').' type is not supported');
+
             return;
         }
 
         $result = $maker->create();
 
-        if($result){
-            $this->info("Process successded");
-        }else{
-            $this->error("Process Failed");
+        if ($result) {
+            $this->info('Process successded');
+        } else {
+            $this->error('Process Failed');
         }
     }
 }

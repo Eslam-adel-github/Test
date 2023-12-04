@@ -1,109 +1,108 @@
 <?php
 
-
 return [
-    'path'          => env('DOMAIN_PATH', 'Domain'),
-    'migrations'    => true,
-    'factories'     => true,
-    'observers'     => true,
-    'views'         => true,
-    'translations'  => true,
-    'commands'      => true,
-    'layout'        => ['lte', [
-        'compacted' => true
-    ],],
+    'path' => env('DOMAIN_PATH', 'Domain'),
+    'migrations' => true,
+    'factories' => true,
+    'observers' => true,
+    'views' => true,
+    'translations' => true,
+    'commands' => true,
+    'layout' => ['lte', [
+        'compacted' => true,
+    ], ],
     'structure' => [
-        "base" => [
-            "Common" => [
-                "Commands" => [],
-                "Exceptions" => [
-                    "Handler.php"
+        'base' => [
+            'Common' => [
+                'Commands' => [],
+                'Exceptions' => [
+                    'Handler.php',
                 ],
-                "Helpers" => [
-                    "UploadHelper.php",
-                    "Enums.php",
-                    "Lang.php",
-                    "Main.php",
-                    "QueryHelpers.php"
+                'Helpers' => [
+                    'UploadHelper.php',
+                    'Enums.php',
+                    'Lang.php',
+                    'Main.php',
+                    'QueryHelpers.php',
                 ],
-                "Http" => [
-                    "Middleware" => [
-                        "Admin.php",
-                        "Authenticate.php",
-                        "CheckForMaintenanceMode.php",
-                        "Cors.php",
-                        "EncryptCookies.php",
-                        "LangMiddleware.php",
-                        "RedirectIfAuthenticated.php",
-                        "TrimStrings.php",
-                        "TrustProxies.php",
-                        "VerifyCsrfToken.php"
+                'Http' => [
+                    'Middleware' => [
+                        'Admin.php',
+                        'Authenticate.php',
+                        'CheckForMaintenanceMode.php',
+                        'Cors.php',
+                        'EncryptCookies.php',
+                        'LangMiddleware.php',
+                        'RedirectIfAuthenticated.php',
+                        'TrimStrings.php',
+                        'TrustProxies.php',
+                        'VerifyCsrfToken.php',
                     ],
-                    "Kernel.php"
+                    'Kernel.php',
                 ],
-                "Console" => [
-                    "Kernel.php"
+                'Console' => [
+                    'Kernel.php',
                 ],
-                "Providers" => [
-                    "DomainServiceProvider.php",
-                    "EventServiceProvider.php",
-                    "HelperServiceProvider.php",
-                    "PolicyServiceProvider.php",
-                    "RepositoryServiceProvider.php",
+                'Providers' => [
+                    'DomainServiceProvider.php',
+                    'EventServiceProvider.php',
+                    'HelperServiceProvider.php',
+                    'PolicyServiceProvider.php',
+                    'RepositoryServiceProvider.php',
                 ],
             ],
-            "Domain" => [],
-            "Infrastructure" => [
+            'Domain' => [],
+            'Infrastructure' => [
 
-                "Contracts" => [
-                    "BaseRepository.php",
-                    "Scope.php"
+                'Contracts' => [
+                    'BaseRepository.php',
+                    'Scope.php',
                 ],
-                "AbstractModels" => [
+                'AbstractModels' => [
                     'BaseModel.php',
                 ],
-                "AbstractRepositories" => [
-                    "EloquentRepository.php",
-                    "RepositoryInterface.php"
+                'AbstractRepositories' => [
+                    'EloquentRepository.php',
+                    'RepositoryInterface.php',
                 ],
 
-                "AbstractProviders" => [
-                    "ServiceProvider.php"
+                'AbstractProviders' => [
+                    'ServiceProvider.php',
                 ],
 
-                "Http" => [
-                    "AbstractResources" => [
+                'Http' => [
+                    'AbstractResources' => [
                         'BaseResource.php',
-                        'BaseCollection.php'
+                        'BaseCollection.php',
                     ],
-                    "AbstractRequests" => [
-                        'BaseRequest.php'
+                    'AbstractRequests' => [
+                        'BaseRequest.php',
                     ],
-                    "AbstractControllers" => [
-                        'BaseController.php'
+                    'AbstractControllers' => [
+                        'BaseController.php',
                     ],
-                    "AbstractFactories" => [
-                        "ModelFactory.php",
-                    ],
-                ],
-
-                "Commands" => [
-                    "AbstractCommand" => [
-                        'BaseCommand.php'
+                    'AbstractFactories' => [
+                        'ModelFactory.php',
                     ],
                 ],
 
-                "Scoping" => [
-                    "Scoper.php"
+                'Commands' => [
+                    'AbstractCommand' => [
+                        'BaseCommand.php',
+                    ],
                 ],
 
-                "Traits" => [
-                    "BuilderParameters.php",
-                    "SpatieQueryBuilder.php",
-                    "WorkFlow.php",
-                    "CanBeScoped.php"
+                'Scoping' => [
+                    'Scoper.php',
                 ],
-            ]
+
+                'Traits' => [
+                    'BuilderParameters.php',
+                    'SpatieQueryBuilder.php',
+                    'WorkFlow.php',
+                    'CanBeScoped.php',
+                ],
+            ],
         ],
         'domain' => [
             //'DataTables',
@@ -131,8 +130,8 @@ return [
             //     'Rules',
             // ],
             //"Commands",
-            "Traits",
-            "Contracts",
+            'Traits',
+            'Contracts',
             // 'Graphql'=>[
             //     "Queries",
             //     "Mutations",
@@ -157,48 +156,48 @@ return [
             // ],
             'Routes' => [
                 'api',
-                'web'
+                'web',
             ],
         ],
     ],
-    "stubs" => [
-        "test_stub" => 'test_stub.stub',
-        "config-app" => "Config/app.stub",
-        "config-fortify" => "Config/app.stub",
-        "config-auth" => "Config/auth.stub",
-        "config-cors" => "Config/cors.stub",
-        "config-lighthouse" => "Config/lighthouse.stub",
-        "event" => "Domain/Events/event.stub",
-        "job" => "Domain/Jobs/job.stub",
-        "command" => "Domain/Commands/command.stub",
-        "livewire" => "Common/Http/Livewire/livewire.stub",
-        "middleware" => "Common/Http/Middleware/middleware.stub",
-        "common_command" => "Common/Commands/command.stub",
-        "common_scope" => "Common/Scopes/scope.stub",
-        "common_event" => "Common/Events/event.stub",
-        "common_notification" => "Common/Notifications/notification.stub",
-        "common_listener" => "Common/Listeners/listener.stub",
-        "common_mail" => "Common/Mails/mail.stub",
-        "scope" => "Domain/Entities/Scopes/scope.stub",
-        "observer" => "Domain/Observers/observer.stub",
-        "policy" => "Domain/Policies/policy.stub",
-        "policy_user" => "Domain/Policies/policy_user.stub",
-        "mail" => "Domain/Mail/mail.stub",
-        "criteria" => "Domain/Criteria/criteria.stub",
-        "listener" => "Domain/Listeners/listener.stub",
-        "notification" => "Domain/Notifications/notification.stub",
-        "rule" => "Domain/Http/Rules/rule.stub",
-        "eloquent" => "Domain/Repositories/Eloquent/eloquent.stub",
-        "contract" => "Domain/Repositories/Contracts/contract.stub",
-        "controller" => "Domain/Http/Controllers/controller.stub",
-        "controller-sac" => "Domain/Http/Controllers/SAC/controller.stub",
-        "controller-api-resource" => "Domain/Http/Controllers/Api/V1/controller.stub",
-        "controller-api-sac" => "Domain/Http/Controllers/Api/V1/SAC/controller.stub",
-        "request-store" => "Domain/Http/Requests/Entity/store.stub",
-        "request-update" => "Domain/Http/Requests/Entity/update.stub",
-        "service" => "Domain/Services/service.stub",
-        "resource" => "Domain/Http/Resources/resource.stub",
-        "resource_collection" => "Domain/Http/Resources/collection.stub",
+    'stubs' => [
+        'test_stub' => 'test_stub.stub',
+        'config-app' => 'Config/app.stub',
+        'config-fortify' => 'Config/app.stub',
+        'config-auth' => 'Config/auth.stub',
+        'config-cors' => 'Config/cors.stub',
+        'config-lighthouse' => 'Config/lighthouse.stub',
+        'event' => 'Domain/Events/event.stub',
+        'job' => 'Domain/Jobs/job.stub',
+        'command' => 'Domain/Commands/command.stub',
+        'livewire' => 'Common/Http/Livewire/livewire.stub',
+        'middleware' => 'Common/Http/Middleware/middleware.stub',
+        'common_command' => 'Common/Commands/command.stub',
+        'common_scope' => 'Common/Scopes/scope.stub',
+        'common_event' => 'Common/Events/event.stub',
+        'common_notification' => 'Common/Notifications/notification.stub',
+        'common_listener' => 'Common/Listeners/listener.stub',
+        'common_mail' => 'Common/Mails/mail.stub',
+        'scope' => 'Domain/Entities/Scopes/scope.stub',
+        'observer' => 'Domain/Observers/observer.stub',
+        'policy' => 'Domain/Policies/policy.stub',
+        'policy_user' => 'Domain/Policies/policy_user.stub',
+        'mail' => 'Domain/Mail/mail.stub',
+        'criteria' => 'Domain/Criteria/criteria.stub',
+        'listener' => 'Domain/Listeners/listener.stub',
+        'notification' => 'Domain/Notifications/notification.stub',
+        'rule' => 'Domain/Http/Rules/rule.stub',
+        'eloquent' => 'Domain/Repositories/Eloquent/eloquent.stub',
+        'contract' => 'Domain/Repositories/Contracts/contract.stub',
+        'controller' => 'Domain/Http/Controllers/controller.stub',
+        'controller-sac' => 'Domain/Http/Controllers/SAC/controller.stub',
+        'controller-api-resource' => 'Domain/Http/Controllers/Api/V1/controller.stub',
+        'controller-api-sac' => 'Domain/Http/Controllers/Api/V1/SAC/controller.stub',
+        'request-store' => 'Domain/Http/Requests/Entity/store.stub',
+        'request-update' => 'Domain/Http/Requests/Entity/update.stub',
+        'service' => 'Domain/Services/service.stub',
+        'resource' => 'Domain/Http/Resources/resource.stub',
+        'resource_collection' => 'Domain/Http/Resources/collection.stub',
         'database-view' => 'Domain/Entities/Views/database_view.stub',
         'datatable' => 'Domain/Datatables/datatable.stub',
         'entity' => 'Domain/Entities/entity.stub',
@@ -220,18 +219,16 @@ return [
         'first_domain-user-factory' => 'User/user-factory.stub',
         'first_domain-user-seeder' => 'User/user-seeder.stub',
         'first_domain-user-route-service-provider' => 'User/route-service-provider.stub',
-        
+
         'component-view' => 'Common/Components/view.stub',
         'component-class' => 'Common/Components/class.stub',
         'route-web' => 'route-web.stub',
-
 
         'phpunit' => 'phpunit.stub',
         'magic-Feature' => 'Domain/Tests/magic-Feature.stub',
         'Feature' => 'Domain/Tests/Feature.stub',
         'magic-Unit' => 'Domain/Tests/magic-Unit.stub',
         'Unit' => 'Domain/Tests/Unit.stub',
-
 
         'graphql-Directives' => 'Domain/Graphql/Directives/Directives.graphql',
         'graphql-Directives-php' => 'Domain/Graphql/Directives/Directive.stub',
@@ -271,8 +268,7 @@ return [
         'entity-relations-belongs-to-methods' => 'Domain/Tests/Unit/Entity/Relations/BelongsTo.stub',
         'entity-relations-belongs-to-many-methods' => 'Domain/Tests/Unit/Entity/Relations/BelongsToMany.stub',
         'request-existance-test-cases-methods' => 'Domain/Tests/Unit/Request/Methods/ExistanceRules.stub',
-        'request-size-test-cases-methods' => 'Domain/Tests/Unit/Request/Methods/SizeRules.stub'
-        
-        
-    ]
+        'request-size-test-cases-methods' => 'Domain/Tests/Unit/Request/Methods/SizeRules.stub',
+
+    ],
 ];

@@ -2,14 +2,11 @@
 
 namespace Src\Domain\Dashboard\Http\Controllers;
 
-use Src\Infrastructure\Http\AbstractControllers\BaseController as Controller;
-
-use Src\Domain\General\Repositories\Contracts\DashboardRepository;
 use Illuminate\Http\Request;
+use Src\Infrastructure\Http\AbstractControllers\BaseController as Controller;
 
 class DashboardController extends Controller
 {
-
     /**
      * View Path.
      *
@@ -31,7 +28,6 @@ class DashboardController extends Controller
      */
     protected $domainAlias = 'dashboards';
 
-
     /**
      * Get All Dashboard.
      *
@@ -39,8 +35,8 @@ class DashboardController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return view("{$this->domainAlias}::{$this->viewPath}.index",[
-            'data' => []
+        return view("{$this->domainAlias}::{$this->viewPath}.index", [
+            'data' => [],
         ]);
     }
 }
